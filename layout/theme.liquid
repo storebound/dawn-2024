@@ -40,7 +40,23 @@
       <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
 
-    {{ content_for_header }}
+{% comment %}start script clean{% endcomment %}
+
+  {% if canonical_url contains "blogs/recipes" %}
+    
+    {% capture h_content %}
+      {{ content_for_header }}
+    {% endcapture %}
+    {{ h_content
+        | remove: "https:\/\/cdn.weglot.com\/weglot_script_tag.js"
+    }}
+
+
+    {% else %}
+      {{ content_for_header }}
+    {% endif %}
+
+{% comment %}end script clean{% endcomment %}
 
     {%- liquid
       assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
