@@ -42,18 +42,20 @@
 
 {% comment %}start script clean{% endcomment %}
 
-  {% if canonical_url contains "blogs/recipes" %}
-    
-    {% capture h_content %}
-      {{ content_for_header }}
-    {% endcapture %}
-    {{ h_content
-        | remove: "https:\/\/cdn.weglot.com\/weglot_script_tag.js"
-    }}
+{% if canonical_url contains "blogs/recipes" %}
 
+{{ content_for_header }}
+  
 
-    {% else %}
-      {{ content_for_header }}
+ {% else %}
+
+{% capture modified_content_for_header %}{{ content_for_header }}{% endcapture %}
+
+  {% assign modified_content_for_header = modified_content_for_header | remove: '"https:\/\/cdn.weglot.com\/weglot_script_tag.js?shop=bydash.myshopify.com",' %}
+  
+  {{ modified_content_for_header }}
+
+  
     {% endif %}
 
 {% comment %}end script clean{% endcomment %}
