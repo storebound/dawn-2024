@@ -111,6 +111,7 @@
                     product: product,
                     use_variant: true,
                     show_badges: true,
+                    show_tooltip: block.settings.show_tooltip,
                     price_class: 'price--large'
                   -%}
                 </div>
@@ -865,7 +866,16 @@
     {
       "type": "price",
       "name": "t:sections.main-product.blocks.price.name",
-      "limit": 1
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_tooltip",
+          "label": "Show Tooltip",
+          "default": true,
+          "info": "Tooltip content is generated in product metafields via the admin."
+        }
+      ]
     },
     {
       "type": "sku",

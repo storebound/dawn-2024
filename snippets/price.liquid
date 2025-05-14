@@ -8,6 +8,7 @@
   - show_badges: {Boolean} Renders 'Sale' and 'Sold Out' tags if the product matches the condition (optional)
   - price_class: {String} Adds a price class to the price element (optional)
   - show_compare_at_price: {Boolean} Renders the compare at price if the product matches the condition (optional)
+  - show_tooltip: { Boolean } Shows tooltip (default true)
 
   Usage:
   {% render 'price', product: product %}
@@ -93,7 +94,7 @@
       <div class="price__sale">
         {%- unless product.price_varies == false and product.compare_at_price_varies %}
           <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.regular_price' | t }}</span>
-          <span>
+          <span style="display:inline-flex;align-items:center;">
             <s class="price-item price-item--regular">
               {% if settings.currency_code_enabled %}
                 {{ compare_at_price | money_with_currency }}

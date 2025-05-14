@@ -1,0 +1,6 @@
+{% if product.metafields.custom.tooltip != blank %}
+<button type="button" class="btn tooltip-btn" data-bs-toggle="tooltip" data-bs-html="true" data-bs-title="{{ product.metafields.custom.tooltip | metafield_tag | remove: '<div class="metafield-rich_text_field"><p>' | remove: '</p></div>' | remove: '"'}}">
+  {% render 'info-icon' %}
+</button>
+{% endif %}
+

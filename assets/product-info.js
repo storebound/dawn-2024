@@ -208,6 +208,12 @@ if (!customElements.get('product-info')) {
               variant,
             },
           });
+          
+          // Refresh Tooltips (Bootstrap Tooltips does not support functionality through ajax page reloads)
+          const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+          const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+          })
         };
       }
 

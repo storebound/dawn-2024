@@ -314,6 +314,8 @@
     })(window, document, "clarity", "script", "n8xhv4tqhe");
 </script>
 {% endcomment %}    
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
   </head>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
@@ -391,7 +393,11 @@
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
 
+    {% comment %} In Social CSS and JS - START {% endcomment %}
     {{ 'is_custom.css' | asset_url | stylesheet_tag }}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>  
+    <script src="{{ 'is_custom.js' | asset_url }}" defer="defer"></script>
+    {% comment %} In Social CSS and JS - END {% endcomment %}
 
     <script>
       // window.dispatchEvent(new Event('load'));

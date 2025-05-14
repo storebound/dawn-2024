@@ -173,6 +173,7 @@
                     show_secondary_image: section.settings.show_secondary_image,
                     show_vendor: section.settings.show_vendor,
                     show_rating: section.settings.show_rating,
+                    show_tooltip: section.settings.show_tooltip,
                     lazy_load: lazy_load,
                     skip_styles: skip_card_product_styles,
                     quick_add: section.settings.quick_add,
@@ -309,6 +310,13 @@
       "default": false,
       "label": "t:sections.main-collection-product-grid.settings.show_rating.label",
       "info": "t:sections.main-collection-product-grid.settings.show_rating.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tooltip",
+      "label": "Show tooltip",
+      "default": true,
+      "info": "Tooltip content is generated in product metafields via the admin."
     },
     {
       "type": "select",

@@ -45,6 +45,7 @@
               show_secondary_image: section.settings.show_secondary_image,
               show_vendor: section.settings.show_vendor,
               show_rating: section.settings.show_rating,
+              show_tooltip: section.settings.show_tooltip,
               skip_styles: skip_card_product_styles
             %}
           </li>
@@ -58,11 +59,30 @@
   {%- endif -%}
 </div>
 
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const targetNode = document.querySelector(".related-products-main");
+  const callback = (mutationList, observer) => {
+    for (const mutation of mutationList) {
+      if (mutation.type === "childList") {
+        const productRecommendations = document.querySelector('product-recommendations')
+        const tooltipTriggerList = [].slice.call(productRecommendations.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+          return new bootstrap.Tooltip(tooltipTriggerEl)
+        })        
+      }
+    }
+  };
+  const observer = new MutationObserver(callback);
+  observer.observe(targetNode, { attributes: false, childList: true, subtree: true });
+});
+</script>
+
 {% schema %}
 {
   "name": "t:sections.related-products.name",
   "tag": "section",
-  "class": "section",
+  "class": "section related-products-main",
   "settings": [
     {
       "type": "paragraph",
@@ -210,6 +230,12 @@
       "default": false,
       "label": "t:sections.related-products.settings.show_rating.label",
       "info": "t:sections.related-products.settings.show_rating.info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_tooltip",
+      "default": true,
+      "label": "Show tooltip"
     },
     {
       "type": "header",

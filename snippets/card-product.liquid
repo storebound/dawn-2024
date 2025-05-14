@@ -8,6 +8,7 @@
   - show_secondary_image: {Boolean} Show the secondary image on hover. Default: false (optional)
   - show_vendor: {Boolean} Show the product vendor. Default: false
   - show_rating: {Boolean} Show the product rating. Default: false
+  - show_tooltip: {Boolean} Show the product tooltip. Default: true
   - extend_height: {Boolean} Card height extends to available container space. Default: true (optional)
   - lazy_load: {Boolean} Image should be lazy loaded. Default: true (optional)
   - skip_styles: {Boolean} Don't include component styles. Useful when rendering multiple product cards in a loop. Default: false (optional)
@@ -158,8 +159,7 @@
       </div>
       <div class="card__content">
         <div class="card__information">
-          <h3
-            class="card__heading{% if card_product.featured_media or settings.card_style == 'standard' %} h5{% endif %}"
+          <h3 class="card__heading{% if show_tooltip == true %} tooltip-enabled{% endif %}{% if card_product.featured_media or settings.card_style == 'standard' %} h5{% endif %}"
             {% if card_product.featured_media or settings.card_style == 'card' %}
               id="title-{{ section_id }}-{{ card_product.id }}"
             {% endif %}
@@ -217,7 +217,7 @@
               </p>
             {%- endif -%}
             {% unless collection.title == 'Support' %}
-            {% render 'price', product: card_product, price_class: '', show_compare_at_price: true %}
+            {% render 'price', product: card_product, price_class: '', show_compare_at_price: true, show_tooltip: show_tooltip %}
             {% endunless  %}
                   {% if collection.title == 'Blenders' or collection.title == 'Up to 50% off Air Fryers' %}
                   {%- if card_product.metafields.custom.product-promo-offer != blank -%}
