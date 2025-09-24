@@ -8,3 +8,5 @@ ignore:
   - "**/*replo*"
   # any file whose name contains "bloggle"
   - "**/*bloggle*"
+    # any file whose name contains "backup"
+  - "**/*detail-backup*"

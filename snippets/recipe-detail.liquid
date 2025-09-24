@@ -1183,7 +1183,7 @@
       <div class="recipe-image-container">
         <img
           class="recipe-image"
-          src="{{ rk_16_9_recipe_image | default: rk_mf.recipe_image | default: '' | asset_url }}"
+          src="{{ rk_16_9_recipe_image | default: rk_mf.recipe_image }}"
           alt="{% if rk_mf.recipe_image_alt_text != blank %}{{ rk_mf.recipe_image_alt_text }}{% else %}Image of {{ rk_mf.recipe_title | default: article.title }}{% endif %}"
           width="1200"
           height="1200"
