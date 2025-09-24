@@ -1201,27 +1201,39 @@
             The structure will automatically close/open lists as needed.
           {%- endcomment -%}
 
-          {%- assign has_ingredients = false -%}
+          {%- assign ingredients_output = '' -%}
+          {%- assign list_open = false -%}
+
           {%- for ingredient in rk_mf.recipe_ingredients -%}
             {%- if ingredient.type == 'heading' -%}
-              {%- if has_ingredients -%}
-                </ul>
+              {%- if list_open -%}
+                {%- assign ingredients_output = ingredients_output | append: '</ul>' -%}
+                {%- assign list_open = false -%}
               {%- endif -%}
-              <h4 class="ingredient-heading">{{- ingredient.heading_text -}}</h4>
-              <ul class="ingredients-list">
-                {%- assign has_ingredients = true -%}
+              {%- assign ingredients_output = ingredients_output
+                | append: '<h4 class="ingredient-heading">'
+                | append: ingredient.heading_text
+                | append: '</h4><ul class="ingredients-list">'
+              -%}
+              {%- assign list_open = true -%}
             {%- else -%}
-              {%- unless has_ingredients -%}
-                <ul class="ingredients-list">
-                  {%- assign has_ingredients = true -%}
+              {%- unless list_open -%}
+                {%- assign ingredients_output = ingredients_output | append: '<ul class="ingredients-list">' -%}
+                {%- assign list_open = true -%}
               {%- endunless -%}
-              <li class="ingredient-item">{{ ingredient.ingredient }}</li>
+              {%- assign ingredients_output = ingredients_output
+                | append: '<li class="ingredient-item">'
+                | append: ingredient.ingredient
+                | append: '</li>'
+              -%}
             {%- endif -%}
           {%- endfor -%}
 
-          {%- if has_ingredients -%}
-            </ul>
+          {%- if list_open -%}
+            {%- assign ingredients_output = ingredients_output | append: '</ul>' -%}
           {%- endif -%}
+
+          {{ ingredients_output }}
         </div>
 
         <!-- You May Also Like Section -->
@@ -1287,29 +1299,39 @@
           The structure will automatically close/open lists as needed.
         {%- endcomment -%}
 
-        {%- assign has_instructions = false -%}
+        {%- assign instructions_output = '' -%}
+        {%- assign list_open = false -%}
+
         {%- for direction in rk_mf.recipe_directions -%}
           {%- if direction.type == 'heading' -%}
-            {%- if has_instructions -%}
-              </ol>
+            {%- if list_open -%}
+              {%- assign instructions_output = instructions_output | append: '</ol>' -%}
+              {%- assign list_open = false -%}
             {%- endif -%}
-            <h4 class="instruction-heading">{{- direction.heading_text -}}</h4>
-            <ol class="instructions-list">
-              {%- assign has_instructions = true -%}
+            {%- assign instructions_output = instructions_output
+              | append: '<h4 class="instruction-heading">'
+              | append: direction.heading_text
+              | append: '</h4><ol class="instructions-list">'
+            -%}
+            {%- assign list_open = true -%}
           {%- else -%}
-            {%- unless has_instructions -%}
-              <ol class="instructions-list">
-                {%- assign has_instructions = true -%}
+            {%- unless list_open -%}
+              {%- assign instructions_output = instructions_output | append: '<ol class="instructions-list">' -%}
+              {%- assign list_open = true -%}
             {%- endunless -%}
-            <li class="instruction-item">
-              <p class="instruction-text">{{ direction.direction }}</p>
-            </li>
+            {%- assign instructions_output = instructions_output
+              | append: '<li class="instruction-item"><p class="instruction-text">'
+              | append: direction.direction
+              | append: '</p></li>'
+            -%}
           {%- endif -%}
         {%- endfor -%}
 
-        {%- if has_instructions -%}
-          </ol>
+        {%- if list_open -%}
+          {%- assign instructions_output = instructions_output | append: '</ol>' -%}
         {%- endif -%}
+
+        {{ instructions_output }}
 
         {% if rk_mf.recipe_note != blank %}
           <div class="recipe-tips">
