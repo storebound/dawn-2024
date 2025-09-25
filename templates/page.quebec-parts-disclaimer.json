@@ -15,6 +15,7 @@
     },
     "custom_liquid_bLBa8k": {
       "type": "custom-liquid",
+      "disabled": true,
       "settings": {
         "custom_liquid": "<div class=\"page-width\">\n{% render 'breadcrumbs' %} \n</div>",
         "color_scheme": "",
