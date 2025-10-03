@@ -236,6 +236,9 @@
                     <a href="{{ product.metafields.custom.quick_start_guide | file_url }}">Download Quick Start Guide</a><br />
                     {% endunless %}
                     {{ 'Warranty Information' | link_to: '/pages/warranty' }}
+                    <p class="product__disclaimer caption">
+                      Dash products include full warranty, support, and quality assurance when purchased at bydash.com or from authorized retailers. Items from unauthorized sellers may not be covered.
+                    </p>
 {% comment %}
                      {% if product.metafields.custom.recipieblogtagplaceholder != blank %}
                     {% render 'mini-blog' %} 
