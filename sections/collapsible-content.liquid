@@ -80,11 +80,14 @@
                     open
                   {% endif %}
                 >
-                  <summary id="Summary-{{ block.id }}-{{ section.id }}">
+                  <summary id="Summary-{{ block.id }}-{{ section.id }}" aria-label="{{ block.settings.heading | default: 'Expandable section' }}">
                     {% render 'icon-accordion', icon: block.settings.icon %}
+                    {%- assign stripped_heading = block.settings.heading | strip -%}
+                    {%- if stripped_heading.size > 0  -%}
                     <h3 class="accordion__title inline-richtext h4">
                       {{ block.settings.heading | default: block.settings.page.title | escape }}
                     </h3>
+                    {%- endif -%}
                     {{- 'icon-caret.svg' | inline_asset_content -}}
                   </summary>
                   <div
