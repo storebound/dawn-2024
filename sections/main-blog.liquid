@@ -168,7 +168,6 @@
             <a
               href="{{ base_url_prefix }}blogs/recipes"
               class="blog-filter__item"
-              aria-selected="false"
               aria-label="Show popular recipes"
               tabindex="0"
             >
@@ -213,7 +212,6 @@
               <a
                 href="{{ base_url_prefix }}blogs/recipes/tagged/{{ tag | handle }}"
                 class="blog-filter__item{% if is_top_category == false %} blog-filter__item--additional{% endif %}"
-                aria-selected="false"
                 aria-label="Filter recipes by {{ tag }}"
                 tabindex="0"
               >
