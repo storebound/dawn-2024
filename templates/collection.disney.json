@@ -52,9 +52,9 @@
         "padding_bottom": 36
       }
     },
-    "replo_collab_collection_98mawP": {
-      "type": "replo-collab-collection",
-      "name": "Collab Collection",
+    "replo_disney_collab_collection_DEB9dx": {
+      "type": "replo-disney-collab-collection",
+      "name": "Disney Collab Collection",
       "settings": {}
     }
   },
@@ -62,6 +62,6 @@
     "custom_liquid_8G7tXg",
     "banner",
     "product-grid",
-    "replo_collab_collection_98mawP"
+    "replo_disney_collab_collection_DEB9dx"
   ]
 }
