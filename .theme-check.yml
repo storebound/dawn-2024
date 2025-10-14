@@ -2,3 +2,11 @@ MatchingTranslations:
   enabled: false
 TemplateLength:
   enabled: false
+
+ignore:
+  # any file whose name contains "replo"
+  - "**/*replo*"
+  # any file whose name contains "bloggle"
+  - "**/*bloggle*"
+    # any file whose name contains "backup rkit"
+  - "**/*detail-backup*"
