@@ -1,0 +1,131 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "175882762186859651": {
+      "type": "_blocks",
+      "settings": {}
+    },
+    "custom_liquid_bLBa8k": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "settings": {
+        "custom_liquid": "<div class=\"page-width\">\n{% render 'breadcrumbs' %} \n</div>",
+        "color_scheme": "",
+        "padding_top": 20,
+        "padding_bottom": 20
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "custom_css": [
+        "h1,.h0 {text-transform: uppercase;}"
+      ],
+      "settings": {
+        "padding_top": 0,
+        "padding_bottom": 28
+      }
+    },
+    "rich_text_64FEHP": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_9cNM6a": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>Pour les consommateurs du Québec seulement – Avis concernant la garantie de disponibilité des pièces de rechange, des services de réparation et des renseignements nécessaires à l’entretien ou à la réparation (art. 39 de la Loi sur la protection du consommateur)</strong>",
+            "heading_size": "h2"
+          }
+        },
+        "text_MJwmYf": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Veuillez noter que StoreBound LLC (ci-après désignée « Dash »), ainsi que ses sociétés affiliées, filiales, sociétés mères, assureurs, successeurs et ayants droit, ne garantissent pas, au sens de l’article 39 de la Loi sur la protection du consommateur, RLRQ, c. P-40.1, et des articles 79.18 à 79.20 du Règlement d’application de la Loi sur la protection du consommateur, RLRQ, c. P-40.1, r. 3, la disponibilité des pièces de rechange, des services de réparation ou des renseignements nécessaires à l’entretien ou à la réparation des biens fabriqués, importés, annoncés ou vendus par Dash ou ses sociétés affiliées.</p><p>Cela dit, selon le type et la marque du produit, nous continuons à offrir des options telles que le service de réparation, l’échange de produit et/ou la fourniture de pièces de rechange, sous réserve des conditions de la garantie limitée du fabricant.</p><p>Pour plus d’informations concernant votre produit, veuillez visiter notre <a href=\"https://bydash.com/collections/support\" title=\"https://bydash.com/collections/support\">page d’assistance</a> ou communiquer avec notre service à la clientèle au <strong>1-800-898-6970</strong>.</p>"
+          }
+        },
+        "button_Mnj3wD": {
+          "type": "button",
+          "settings": {
+            "button_label": "Envoyez-nous un message",
+            "button_link": "https://bydash.com/pages/contact-us",
+            "button_style_secondary": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_9cNM6a",
+        "text_MJwmYf",
+        "button_Mnj3wD"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 32
+      }
+    },
+    "rich_text_R7dFVb": {
+      "type": "rich-text",
+      "blocks": {
+        "heading_BcjGbj": {
+          "type": "heading",
+          "settings": {
+            "heading": "<strong>For Québec consumers only – Notice concerning the guarantee of availability of spare parts, repair services, and information necessary for maintenance or repair (s. 39 of the Consumer Protection Act)</strong>",
+            "heading_size": "h2"
+          }
+        },
+        "text_hcRU8F": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Please note that StoreBound LLC (hereinafter referred to as “Dash”), together with its affiliates, subsidiaries, parent companies, insurers, successors, and assigns, does not guarantee, within the meaning of section 39 of the Consumer Protection Act, CQLR, c. P-40.1, and sections 79.18 to 79.20 of the Regulation respecting the application of the Consumer Protection Act, CQLR, c. P-40.1, r. 3, the availability of spare parts, repair services, or the information necessary for the maintenance or repair of goods manufactured, imported, advertised, or sold by Dash or its affiliates.</p><p>That said, depending on the product type and brand, we continue to offer options such as repair service, product exchange, and/or spare parts, subject to the terms of the manufacturer’s limited warranty.</p><p>For more details about your specific product, please visit our <a href=\"https://bydash.com/collections/support\" title=\"https://bydash.com/collections/support\">Support Page</a> or contact our Customer Support team at <strong>1-800-898-6970</strong>.</p>"
+          }
+        },
+        "button_9dTYB6": {
+          "type": "button",
+          "settings": {
+            "button_label": "Send Us A Message",
+            "button_link": "https://bydash.com/pages/contact-us",
+            "button_style_secondary": false,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_BcjGbj",
+        "text_hcRU8F",
+        "button_9dTYB6"
+      ],
+      "name": "t:sections.rich-text.presets.name",
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "color_scheme": "",
+        "full_width": true,
+        "padding_top": 40,
+        "padding_bottom": 32
+      }
+    }
+  },
+  "order": [
+    "175882762186859651",
+    "custom_liquid_bLBa8k",
+    "main",
+    "rich_text_64FEHP",
+    "rich_text_R7dFVb"
+  ]
+}
