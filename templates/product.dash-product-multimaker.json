@@ -62,6 +62,17 @@
             "swatch_shape": "circle"
           }
         },
+        "variantswitcher_variant_switcher_bYiBfH": {
+          "type": "shopify://apps/variantswitcher/blocks/variant-switcher/0199ea68-8968-74c7-b980-d619b9cdfefc",
+          "settings": {
+            "hide_native_picker": true,
+            "update_history": true,
+            "allow_unavailable_selection": true,
+            "redirect_fallback": true,
+            "extra_input_selectors": "(none)",
+            "extra_event_names": "(none)"
+          }
+        },
         "quantity_selector": {
           "type": "quantity_selector",
           "settings": {}
@@ -140,6 +151,7 @@
         "price",
         "custom_liquid_AxfGji",
         "variant_picker",
+        "variantswitcher_variant_switcher_bYiBfH",
         "quantity_selector",
         "buy_buttons",
         "description",
