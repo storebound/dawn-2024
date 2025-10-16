@@ -51,6 +51,7 @@
         },
         "variantswitcher_variant_switcher_bYiBfH": {
           "type": "shopify://apps/variantswitcher/blocks/variant-switcher/0199ea68-8968-74c7-b980-d619b9cdfefc",
+          "disabled": true,
           "settings": {
             "hide_native_picker": true,
             "update_history": true,
