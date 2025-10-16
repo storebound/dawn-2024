@@ -125,7 +125,7 @@
     "cart_type": "drawer",
     "show_vendor": false,
     "show_cart_note": false,
-    "cart_drawer_collection": "",
+    "cart_drawer_collection": "multimakers",
     "sections": {
       "main-password-header": {
         "type": "main-password-header",
@@ -491,9 +491,6 @@
     }
   },
   "platform_customizations": {
-    "custom_css": [
-      ".swatch-input__input.visually-disabled + .swatch-input__label > .swatch {opacity: 100%;}",
-      ".gift-card__text-wrapper {display: none;}"
-    ]
+    "custom_css": []
   }
 }
