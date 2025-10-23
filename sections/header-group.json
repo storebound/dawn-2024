@@ -21,13 +21,6 @@
             "link": ""
           }
         },
-        "announcement_NbVQLC": {
-          "type": "announcement",
-          "settings": {
-            "text": "Welcome to our store",
-            "link": ""
-          }
-        },
         "announcement_XiUDac": {
           "type": "announcement",
           "settings": {
@@ -45,7 +38,6 @@
       },
       "block_order": [
         "announcement-bar-0",
-        "announcement_NbVQLC",
         "announcement_XiUDac",
         "announcement_KWRqw6"
       ],
