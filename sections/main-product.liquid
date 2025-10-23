@@ -119,7 +119,7 @@
                     <span>{{ 'products.product.volume_pricing.note' | t }}</span>
                   </div>
                 {%- endif -%}
-                {% unless product.tags contains 'addpolicy' %}
+                {% if product.tags contains 'addpolicy' %}
                 {%- if cart.taxes_included or cart.duties_included or shop.shipping_policy.body != blank -%}
                   <div class="product__tax caption rte">
                     {%- if cart.duties_included and cart.taxes_included -%}
@@ -134,7 +134,7 @@
                     {%- endif -%}
                   </div>
                 {%- endif -%}
-                {% endunless %}
+              {% endif %}
               {% unless product.tags contains 'noshoppay' %}
                 <div {{ block.shopify_attributes }}>
                   {%- assign product_form_installment_id = 'product-form-installment-' | append: section.id -%}
