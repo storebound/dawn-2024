@@ -56,6 +56,17 @@
             "swatch_shape": "circle"
           }
         },
+        "variantswitcher_variant_switcher_8kWwfG": {
+          "type": "shopify://apps/variantswitcher/blocks/variant-switcher/0199ea68-8968-74c7-b980-d619b9cdfefc",
+          "settings": {
+            "hide_native_picker": true,
+            "update_history": true,
+            "allow_unavailable_selection": true,
+            "redirect_fallback": true,
+            "extra_input_selectors": "(none)",
+            "extra_event_names": "(none)"
+          }
+        },
         "quantity_selector": {
           "type": "quantity_selector",
           "settings": {}
@@ -158,6 +169,7 @@
         "caption",
         "price",
         "variant_picker",
+        "variantswitcher_variant_switcher_8kWwfG",
         "quantity_selector",
         "buy_buttons",
         "text_faWpYb",
@@ -181,9 +193,9 @@
         "constrain_to_viewport": true,
         "media_fit": "contain",
         "gallery_layout": "stacked",
+        "mobile_thumbnails": "hide",
         "media_position": "left",
         "image_zoom": "hover",
-        "mobile_thumbnails": "hide",
         "hide_variants": true,
         "enable_video_looping": true,
         "padding_top": 8,
@@ -213,8 +225,8 @@
         "heading_size": "h1",
         "heading_alignment": "center",
         "layout": "none",
-        "color_scheme": "",
         "container_color_scheme": "",
+        "color_scheme": "",
         "open_first_collapsible_row": true,
         "image_ratio": "adapt",
         "desktop_layout": "image_first",
@@ -299,11 +311,11 @@
         "heading_size": "h2",
         "image_width": "full",
         "image_ratio": "square",
+        "button_label": "",
+        "button_link": "",
         "columns_desktop": 3,
         "column_alignment": "center",
         "background_style": "none",
-        "button_label": "",
-        "button_link": "",
         "color_scheme": "scheme-1",
         "columns_mobile": "1",
         "swipe_on_mobile": true,
@@ -334,8 +346,8 @@
         "heading_size": "h1",
         "heading_alignment": "center",
         "layout": "none",
-        "color_scheme": "",
         "container_color_scheme": "",
+        "color_scheme": "",
         "open_first_collapsible_row": true,
         "image_ratio": "adapt",
         "desktop_layout": "image_first",
@@ -368,13 +380,13 @@
         "heading_size": "h2",
         "products_to_show": 4,
         "columns_desktop": 4,
+        "columns_mobile": "2",
         "color_scheme": "scheme-1",
         "image_ratio": "square",
         "image_shape": "default",
         "show_secondary_image": true,
         "show_vendor": false,
         "show_rating": false,
-        "columns_mobile": "2",
         "padding_top": 16,
         "padding_bottom": 28
       }
