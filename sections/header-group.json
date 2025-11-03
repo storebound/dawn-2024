@@ -30,6 +30,7 @@
         },
         "announcement_KWRqw6": {
           "type": "announcement",
+          "disabled": true,
           "settings": {
             "text": "UP TO 15% OFF SPOOKY MINI MAKERS",
             "link": "shopify://collections/halloween-favorites"
