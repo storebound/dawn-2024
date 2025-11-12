@@ -24,6 +24,19 @@
   {%- assign pagination_count = 16 -%}
 {%- endif -%}
 
+<script>
+new MutationObserver(() => {
+  document.querySelectorAll('span[role="tab"]').forEach(el => {
+    el.setAttribute('role', 'button')
+  });
+}).observe(document.body, { childList: true, subtree: true });
+
+document.querySelectorAll('span[role="tab"]').forEach(el => {
+  el.setAttribute('role', 'button')
+})
+
+</script>
+
 {%- paginate blog.articles by pagination_count -%}
   <div class="main-blog page-width section-{{ section.id }}-padding">
     {%- if request.path contains '/blogs/recipes' -%}
