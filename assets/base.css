@@ -3599,3 +3599,7 @@ details-disclosure > details {
     transform: translateX(100%) scaleX(0);
   }
 }
+
+.tpo_total-additional-price {
+    color: #00854D !important;
+}
