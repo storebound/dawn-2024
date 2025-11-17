@@ -23,6 +23,7 @@
         },
         "announcement_XiUDac": {
           "type": "announcement",
+          "disabled": true,
           "settings": {
             "text": "ZAKARIAN BY DASH: UP TO 40% OFF",
             "link": "shopify://collections/zakarian-by-dash"
