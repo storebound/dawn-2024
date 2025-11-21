@@ -121,37 +121,76 @@
 .price__badge-bottom {
   background-color: #D3ECE8;
   color: #000000;
-  border: 1px dashed #5E8E87;
   border-radius: 0.4rem;
-  padding: 0.4rem 0.8rem;
+  padding: 0.5rem;
   font-size: 1.2rem;
   line-height: 1.2;
   margin-top: 0.5rem;
-  display: inline-flex;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 200px;
+}
+
+.price__badge-text {
+  text-align: center;
+  font-weight: bold;
+}
+
+.price__badge-code-container {
+  background: #fff;
+  border: 1px dashed #5E8E87;
+  border-radius: 0.4rem;
+  padding: 0.4rem 0.8rem;
+  display: flex;
   align-items: center;
+  justify-content: space-between;
   font-family: monospace;
   position: relative;
   gap: 10px;
-  min-width: 200px;
-  justify-content: space-between;
+}
+
+.price__badge-code-container::before,
+.price__badge-code-container::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  background-color: #D3ECE8;
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.price__badge-code-container::before {
+  left: -5px;
+}
+
+.price__badge-code-container::after {
+  right: -5px;
+}
+
+.price__badge-code {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #000;
 }
 
 .price__badge-bottom .copy-btn {
-  background: #fff;
-  border: 1px solid #5E8E87;
-  color: #5E8E87;
+  background: #5E8E87;
+  border: none;
+  color: #fff;
   padding: 4px 12px;
   border-radius: 4px;
   cursor: pointer;
   font-size: 1rem;
   font-weight: bold;
   position: relative;
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 
 .price__badge-bottom .copy-btn:hover {
-  background: #5E8E87;
-  color: #fff;
+  background: #4a706b;
 }
 
 .price__badge-bottom .tooltip {

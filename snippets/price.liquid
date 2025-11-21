@@ -43,6 +43,7 @@
   assign discount_tag = shop.metafields.theme_custom.discount_tag.value
   assign sales_text = shop.metafields.theme_custom.sales_text
   assign deals_text = shop.metafields.theme_custom.deals_text
+  assign discount_code = shop.metafields.theme_custom.discount_code
 
   assign show_discount_badges = false
   if discount_logic == 'include'
@@ -141,11 +142,16 @@
       {%- endif -%}
       {%- if show_discount_badges and deals_text != blank -%}
         <div class="price__badge-bottom">
-          <span id="coupon-text">{{ deals_text | metafield_tag }}</span>
-          <button class="copy-btn" onclick="copyCoupon(this)" aria-label="Copy coupon code">
-            <span class="copy-text">COPY</span>
-            <span class="tooltip">Copied!</span>
-          </button>
+          <div class="price__badge-text">{{ deals_text | metafield_tag }}</div>
+          {%- if discount_code != blank -%}
+            <div class="price__badge-code-container">
+              <span class="price__badge-code" id="coupon-text">{{ discount_code | metafield_tag }}</span>
+              <button class="copy-btn" onclick="copyCoupon(this)" aria-label="Copy coupon code">
+                <span class="copy-text">COPY</span>
+                <span class="tooltip">Copied!</span>
+              </button>
+            </div>
+          {%- endif -%}
         </div>
 
         <script>
