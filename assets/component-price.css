@@ -122,52 +122,65 @@
   background-color: #D3ECE8;
   color: #000000;
   border-radius: 0.4rem;
-  padding: 0.5rem;
+  padding: 1rem;
   font-size: 1.2rem;
   line-height: 1.2;
   margin-top: 0.5rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  min-width: 200px;
+  min-width: 220px;
+  position: relative;
+  border: 1px dashed #5E8E87;
 }
+
+/* Cutout circles on the parent container */
+.price__badge-bottom::before,
+.price__badge-bottom::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  background-color: #fff; /* Assumes white background behind the badge */
+  border-radius: 50%;
+  transform: translateY(-50%);
+  border: 1px dashed #5E8E87; /* Match parent border */
+  z-index: 1;
+}
+
+/* Hide the border part of the circle that overlaps the badge content area
+   This is a trick: using box-shadow or clipping is harder with dashed borders.
+   For a simpler visual match on white bg, we position them to look like cutouts.
+   Since the border is dashed, we might just use a solid circle and let it clip.
+*/
+.price__badge-bottom::before {
+  left: -9px;
+  border-right-color: transparent; /* Hide inner border */
+}
+
+.price__badge-bottom::after {
+  right: -9px;
+  border-left-color: transparent; /* Hide inner border */
+}
+
 
 .price__badge-text {
   text-align: center;
   font-weight: bold;
+  margin-bottom: 4px;
 }
 
 .price__badge-code-container {
   background: #fff;
-  border: 1px dashed #5E8E87;
   border-radius: 0.4rem;
-  padding: 0.4rem 0.8rem;
+  padding: 0.6rem 0.8rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-family: monospace;
-  position: relative;
   gap: 10px;
-}
-
-.price__badge-code-container::before,
-.price__badge-code-container::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  width: 10px;
-  height: 10px;
-  background-color: #D3ECE8;
-  border-radius: 50%;
-  transform: translateY(-50%);
-}
-
-.price__badge-code-container::before {
-  left: -5px;
-}
-
-.price__badge-code-container::after {
-  right: -5px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
 .price__badge-code {
@@ -180,7 +193,7 @@
   background: #5E8E87;
   border: none;
   color: #fff;
-  padding: 4px 12px;
+  padding: 6px 14px;
   border-radius: 4px;
   cursor: pointer;
   font-size: 1rem;
@@ -201,8 +214,8 @@
   border-radius: 4px;
   padding: 4px 8px;
   position: absolute;
-  z-index: 1;
-  bottom: 125%;
+  z-index: 10;
+  bottom: 110%;
   left: 50%;
   transform: translateX(-50%);
   opacity: 0;
