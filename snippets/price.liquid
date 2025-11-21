@@ -146,10 +146,7 @@
           {%- if discount_code != blank -%}
             <div class="price__badge-code-container">
               <span class="price__badge-code" id="coupon-text">{{ discount_code | metafield_tag }}</span>
-              <button class="copy-btn" onclick="copyCoupon(this)" aria-label="Copy coupon code">
-                <span class="copy-text">COPY</span>
-                <span class="tooltip">Copied!</span>
-              </button>
+              <button class="copy-btn" onclick="copyCoupon(this)" aria-label="Copy coupon code">COPY</button>
             </div>
           {%- endif -%}
         </div>
@@ -158,10 +155,11 @@
           function copyCoupon(btn) {
             var text = btn.previousElementSibling.innerText;
             navigator.clipboard.writeText(text).then(function () {
-              var tooltip = btn.querySelector('.tooltip');
-              tooltip.classList.add('show');
+              btn.innerText = 'COPIED';
+              btn.classList.add('copied');
               setTimeout(function () {
-                tooltip.classList.remove('show');
+                btn.innerText = 'COPY';
+                btn.classList.remove('copied');
               }, 2000);
             });
           }

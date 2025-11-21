@@ -202,37 +202,7 @@
   background: #4a706b;
 }
 
-.price__badge-bottom .tooltip {
-  visibility: hidden;
-  background-color: #333;
+.price__badge-bottom .copy-btn.copied {
+  background: #333;
   color: #fff;
-  text-align: center;
-  border-radius: 4px;
-  padding: 4px 8px;
-  position: absolute;
-  z-index: 10;
-  bottom: 110%;
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0;
-  transition: opacity 0.3s;
-  font-size: 1rem;
-  white-space: nowrap;
-  pointer-events: none;
-}
-
-.price__badge-bottom .tooltip::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #333 transparent transparent transparent;
-}
-
-.price__badge-bottom .tooltip.show {
-  visibility: visible;
-  opacity: 1;
 }
