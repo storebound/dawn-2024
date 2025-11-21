@@ -41,8 +41,8 @@
 
   assign discount_logic = shop.metafields.theme_custom.discount_logic.value
   assign discount_tag = shop.metafields.theme_custom.discount_tag.value
-  assign sales_text = shop.metafields.theme_custom.sales_text.value
-  assign deals_text = shop.metafields.theme_custom.deals_text.value
+  assign sales_text = shop.metafields.theme_custom.sales_text
+  assign deals_text = shop.metafields.theme_custom.deals_text
 
   assign show_discount_badges = false
   if discount_logic == 'include'
