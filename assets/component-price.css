@@ -168,6 +168,11 @@
   margin-bottom: 4px;
 }
 
+.price__badge-text strong,
+.price__badge-text b {
+  font-size: 1.3em;
+}
+
 .price__badge-code-container {
   background: #fff;
   border-radius: 0.4rem;
