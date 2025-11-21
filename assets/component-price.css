@@ -98,3 +98,33 @@
   margin-top: 0.2rem;
   color: rgba(var(--color-foreground), 0.7);
 }
+
+.price__badge-top {
+  background-color: #D20000;
+  color: #ffffff;
+  border-radius: 0.4rem;
+  padding: 0.2rem 0.8rem;
+  font-size: 1.2rem;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+  font-weight: bold;
+}
+
+/* Handle rich text paragraph margins inside badges */
+.price__badge-top p,
+.price__badge-bottom p {
+  margin: 0;
+  display: inline;
+}
+
+.price__badge-bottom {
+  background-color: #D3ECE8;
+  color: #000000;
+  border-radius: 0.4rem;
+  padding: 0.2rem 0.8rem;
+  font-size: 1.2rem;
+  line-height: 1.2;
+  margin-top: 0.5rem;
+  display: inline-block;
+}
