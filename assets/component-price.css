@@ -121,10 +121,70 @@
 .price__badge-bottom {
   background-color: #D3ECE8;
   color: #000000;
+  border: 1px dashed #5E8E87;
   border-radius: 0.4rem;
-  padding: 0.2rem 0.8rem;
+  padding: 0.4rem 0.8rem;
   font-size: 1.2rem;
   line-height: 1.2;
   margin-top: 0.5rem;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  font-family: monospace;
+  position: relative;
+  gap: 10px;
+  min-width: 200px;
+  justify-content: space-between;
+}
+
+.price__badge-bottom .copy-btn {
+  background: #fff;
+  border: 1px solid #5E8E87;
+  color: #5E8E87;
+  padding: 4px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.price__badge-bottom .copy-btn:hover {
+  background: #5E8E87;
+  color: #fff;
+}
+
+.price__badge-bottom .tooltip {
+  visibility: hidden;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 4px;
+  padding: 4px 8px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: 1rem;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.price__badge-bottom .tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent;
+}
+
+.price__badge-bottom .tooltip.show {
+  visibility: visible;
+  opacity: 1;
 }

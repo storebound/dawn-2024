@@ -140,7 +140,26 @@
         %}
       {%- endif -%}
       {%- if show_discount_badges and deals_text != blank -%}
-        <div class="price__badge-bottom">{{ deals_text | metafield_tag }}</div>
+        <div class="price__badge-bottom">
+          <span id="coupon-text">{{ deals_text | metafield_tag }}</span>
+          <button class="copy-btn" onclick="copyCoupon(this)" aria-label="Copy coupon code">
+            <span class="copy-text">COPY</span>
+            <span class="tooltip">Copied!</span>
+          </button>
+        </div>
+
+        <script>
+          function copyCoupon(btn) {
+            var text = btn.previousElementSibling.innerText;
+            navigator.clipboard.writeText(text).then(function () {
+              var tooltip = btn.querySelector('.tooltip');
+              tooltip.classList.add('show');
+              setTimeout(function () {
+                tooltip.classList.remove('show');
+              }, 2000);
+            });
+          }
+        </script>
       {%- endif -%}
     </div>
     {%- if show_badges -%}
