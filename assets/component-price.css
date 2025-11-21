@@ -136,31 +136,31 @@
   border: 1px dashed #5E8E87;
 }
 
-/* Cutout circles on the parent container - moved to top/bottom center */
+/* Cutout circles on the parent container - moved to left/right center */
 .price__badge-bottom::before,
 .price__badge-bottom::after {
   content: "";
   position: absolute;
-  left: 50%;
+  top: 50%;
   width: 16px;
   height: 16px;
   background-color: #fff; /* Assumes white background behind the badge */
   border-radius: 50%;
-  transform: translateX(-50%);
+  transform: translateY(-50%);
   border: 1px dashed #5E8E87; /* Match parent border */
   z-index: 1;
 }
 
-/* Top Cutout */
+/* Left Cutout */
 .price__badge-bottom::before {
-  top: -9px;
-  clip-path: inset(50% 0 0 0); /* Show bottom half only (inner curve) */
+  left: -9px;
+  clip-path: inset(0 0 0 50%); /* Show right half only (inner curve) */
 }
 
-/* Bottom Cutout */
+/* Right Cutout */
 .price__badge-bottom::after {
-  bottom: -9px;
-  clip-path: inset(0 0 50% 0); /* Show top half only (inner curve) */
+  right: -9px;
+  clip-path: inset(0 50% 0 0); /* Show left half only (inner curve) */
 }
 
 
