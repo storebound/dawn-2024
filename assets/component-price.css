@@ -149,19 +149,15 @@
   z-index: 1;
 }
 
-/* Hide the border part of the circle that overlaps the badge content area
-   This is a trick: using box-shadow or clipping is harder with dashed borders.
-   For a simpler visual match on white bg, we position them to look like cutouts.
-   Since the border is dashed, we might just use a solid circle and let it clip.
-*/
+/* Mask the outer half of the circle so the border only appears on the "inside" cutout curve */
 .price__badge-bottom::before {
   left: -9px;
-  border-right-color: transparent; /* Hide inner border */
+  clip-path: inset(0 0 0 50%); /* Show only right half (inner) */
 }
 
 .price__badge-bottom::after {
   right: -9px;
-  border-left-color: transparent; /* Hide inner border */
+  clip-path: inset(0 50% 0 0); /* Show only left half (inner) */
 }
 
 
