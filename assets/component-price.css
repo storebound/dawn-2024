@@ -98,3 +98,141 @@
   margin-top: 0.2rem;
   color: rgba(var(--color-foreground), 0.7);
 }
+
+.price__badge-top {
+  background-color: #D20000;
+  color: #ffffff;
+  border-radius: 0.4rem;
+  padding: 0.2rem 0.8rem;
+  font-size: 1.2rem;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+  font-weight: bold;
+}
+
+/* Handle rich text paragraph margins inside badges */
+.price__badge-top p,
+.price__badge-bottom p {
+  margin: 0;
+  display: inline;
+}
+
+.price__badge-bottom {
+  background-color: #D3ECE8;
+  color: #000000;
+  border-radius: 0.4rem;
+  padding: 1rem;
+  font-size: 1.2rem;
+  line-height: 1.2;
+  margin-top: 0.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal columns */
+  align-items: center;
+  gap: 1rem;
+  max-width: 380px;
+  width: 100%;
+  position: relative;
+  border: 1px dashed #5E8E87;
+}
+
+/* Cutout circles on the parent container - moved to left/right center */
+.price__badge-bottom::before,
+.price__badge-bottom::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  background-color: #fff; /* Assumes white background behind the badge */
+  border-radius: 50%;
+  transform: translateY(-50%);
+  border: 1px dashed #5E8E87; /* Match parent border */
+  z-index: 1;
+}
+
+/* Left Cutout */
+.price__badge-bottom::before {
+  left: -9px;
+  clip-path: inset(0 0 0 50%); /* Show right half only (inner curve) */
+}
+
+/* Right Cutout */
+.price__badge-bottom::after {
+  right: -9px;
+  clip-path: inset(0 50% 0 0); /* Show left half only (inner curve) */
+}
+
+
+.price__badge-text {
+  text-align: left;
+  font-weight: bold;
+  margin-bottom: 0;
+  padding-right: 0.5rem;
+  padding-left: 8px; /* Add padding to avoid overlap with left cutout */
+}
+
+.price__badge-text p {
+  display: inline; /* Ensure paragraph from rich text stays inline */
+}
+
+.price__badge-text strong,
+.price__badge-text b {
+  font-size: 1.3em;
+}
+
+.price__badge-terms {
+  font-size: 0.9rem;
+  font-weight: normal;
+  text-decoration: underline;
+  color: rgba(0, 0, 0, 0.6);
+  margin-top: 4px;
+  display: inline-block;
+}
+
+.price__badge-terms:hover {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.price__badge-code-container {
+  background: #fff;
+  border-radius: 0.4rem;
+  padding: 0.4rem 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: monospace;
+  gap: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.price__badge-code {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #000;
+}
+
+.price__badge-bottom .copy-btn {
+  background: rgb(211, 236, 232);
+  border: none;
+  color: rgb(6, 42, 48);
+  padding: 4px 12px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  position: relative;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.price__badge-bottom .copy-btn:hover {
+  background: rgb(190, 225, 220);
+}
+
+.price__badge-bottom .copy-btn.copied {
+  background: rgb(6, 42, 48);
+  color: rgb(211, 236, 232);
+}
