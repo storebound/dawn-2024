@@ -142,7 +142,10 @@
       {%- endif -%}
       {%- if show_discount_badges and deals_text != blank -%}
         <div class="price__badge-bottom">
-          <div class="price__badge-text">{{ deals_text | metafield_tag }}</div>
+          <div class="price__badge-text">
+            {{ deals_text | metafield_tag }}
+            <a href="/pages/discount-terms-and-conditions" class="price__badge-terms">*Terms</a>
+          </div>
           {%- if discount_code != blank -%}
             <div class="price__badge-code-container">
               <span class="price__badge-code" id="coupon-text">{{ discount_code | metafield_tag }}</span>

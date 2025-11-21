@@ -173,6 +173,18 @@
   font-size: 1.3em;
 }
 
+.price__badge-terms {
+  font-size: 0.9rem;
+  font-weight: normal;
+  text-decoration: underline;
+  color: rgba(0, 0, 0, 0.6);
+  margin-left: 4px;
+}
+
+.price__badge-terms:hover {
+  color: rgba(0, 0, 0, 0.9);
+}
+
 .price__badge-code-container {
   background: #fff;
   border-radius: 0.4rem;
