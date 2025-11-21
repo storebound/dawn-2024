@@ -148,15 +148,15 @@
           </div>
           {%- if discount_code != blank -%}
             <div class="price__badge-code-container">
-              <span class="price__badge-code" id="coupon-text">{{ discount_code | metafield_tag }}</span>
               <button class="copy-btn" onclick="copyCoupon(this)" aria-label="Copy coupon code">COPY</button>
+              <span class="price__badge-code" id="coupon-text">{{ discount_code | metafield_tag }}</span>
             </div>
           {%- endif -%}
         </div>
 
         <script>
           function copyCoupon(btn) {
-            var text = btn.previousElementSibling.innerText;
+            var text = btn.nextElementSibling.innerText;
             navigator.clipboard.writeText(text).then(function () {
               btn.innerText = 'COPIED';
               btn.classList.add('copied');

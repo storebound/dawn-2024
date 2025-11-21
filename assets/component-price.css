@@ -168,6 +168,10 @@
   margin-bottom: 4px;
 }
 
+.price__badge-text p {
+  display: inline; /* Ensure paragraph from rich text stays inline */
+}
+
 .price__badge-text strong,
 .price__badge-text b {
   font-size: 1.3em;
