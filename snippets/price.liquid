@@ -46,20 +46,22 @@
   assign discount_code = shop.metafields.theme_custom.discount_code
 
   assign show_discount_badges = false
-  if discount_logic == 'include'
-    if product.tags contains discount_tag
-      assign show_discount_badges = true
+  if template.name == 'product'
+    if discount_logic == 'include'
+      if product.tags contains discount_tag
+        assign show_discount_badges = true
+      endif
+    elsif discount_logic == 'exclude'
+      unless product.tags contains discount_tag
+        assign show_discount_badges = true
+      endunless
+    else
+      comment
+        If discount_logic is anything else (e.g. "disable" or empty),
+        show_discount_badges remains false.
+      endcomment
+      assign show_discount_badges = false
     endif
-  elsif discount_logic == 'exclude'
-    unless product.tags contains discount_tag
-      assign show_discount_badges = true
-    endunless
-  else
-    comment
-      If discount_logic is anything else (e.g. "disable" or empty),
-      show_discount_badges remains false.
-    endcomment
-    assign show_discount_badges = false
   endif
 -%}
 
@@ -147,7 +149,14 @@
           </div>
           {%- if discount_code != blank -%}
             <div class="price__badge-code-container">
-              <button class="copy-btn" onclick="copyCoupon(this)" aria-label="Copy coupon code">COPY</button>
+              <button
+                class="copy-btn"
+                onclick="copyCoupon(this)"
+                aria-label="Copy coupon code {{ discount_code }}"
+                aria-live="polite"
+              >
+                COPY
+              </button>
               <span class="price__badge-code" id="coupon-text">{{ discount_code | metafield_tag }}</span>
             </div>
           {%- endif -%}

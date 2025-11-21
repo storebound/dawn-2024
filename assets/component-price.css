@@ -169,6 +169,7 @@
   font-weight: bold;
   margin-bottom: 0;
   padding-right: 0.5rem;
+  padding-left: 8px; /* Add padding to avoid overlap with left cutout */
 }
 
 .price__badge-text p {
