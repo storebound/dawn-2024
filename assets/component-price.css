@@ -129,7 +129,8 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  min-width: 220px;
+  max-width: 320px;
+  width: 100%;
   position: relative;
   border: 1px dashed #5E8E87;
 }
@@ -186,23 +187,25 @@
 }
 
 .price__badge-bottom .copy-btn {
-  background: #5E8E87;
+  background: rgb(211, 236, 232);
   border: none;
-  color: #fff;
-  padding: 6px 14px;
-  border-radius: 4px;
+  color: rgb(6, 42, 48);
+  padding: 6px 18px;
+  border-radius: 50px;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: bold;
   position: relative;
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .price__badge-bottom .copy-btn:hover {
-  background: #4a706b;
+  background: rgb(190, 225, 220);
 }
 
 .price__badge-bottom .copy-btn.copied {
-  background: #333;
-  color: #fff;
+  background: rgb(6, 42, 48);
+  color: rgb(211, 236, 232);
 }
