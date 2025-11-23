@@ -49,6 +49,17 @@
           "type": "price",
           "settings": {}
         },
+        "variantswitcher_variant_switcher_43bBqV": {
+          "type": "shopify://apps/variantswitcher/blocks/variant-switcher/0199ea68-8968-74c7-b980-d619b9cdfefc",
+          "settings": {
+            "hide_native_picker": true,
+            "update_history": true,
+            "allow_unavailable_selection": true,
+            "redirect_fallback": true,
+            "extra_input_selectors": "(none)",
+            "extra_event_names": "(none)"
+          }
+        },
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
@@ -157,6 +168,7 @@
         "okendo_star_rating_PKR3YQ",
         "caption",
         "price",
+        "variantswitcher_variant_switcher_43bBqV",
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
