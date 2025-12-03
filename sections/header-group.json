@@ -23,6 +23,7 @@
         },
         "announcement_XiUDac": {
           "type": "announcement",
+          "disabled": true,
           "settings": {
             "text": "25% OFF SITEWIDE - USE CODE DASH25",
             "link": "shopify://collections/black-friday-2025"
@@ -30,6 +31,7 @@
         },
         "announcement_KWRqw6": {
           "type": "announcement",
+          "disabled": true,
           "settings": {
             "text": "UP TO 50% OFF SUPERSAVERS",
             "link": "shopify://collections/super-savers-2024"
