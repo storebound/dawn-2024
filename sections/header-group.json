@@ -23,10 +23,9 @@
         },
         "announcement_XiUDac": {
           "type": "announcement",
-          "disabled": true,
           "settings": {
-            "text": "25% OFF SITEWIDE - USE CODE DASH25",
-            "link": "shopify://collections/black-friday-2025"
+            "text": "20% OFF SITEWIDE - USE CODE LASTCHANCE20",
+            "link": "shopify://collections/all"
           }
         },
         "announcement_KWRqw6": {
