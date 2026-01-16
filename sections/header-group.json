@@ -14,19 +14,18 @@
     "announcement-bar": {
       "type": "announcement-bar",
       "blocks": {
+        "announcement_XiUDac": {
+          "type": "announcement",
+          "settings": {
+            "text": "20% OFF SELECT PRODUCTS - USE CODE SAVE20!",
+            "link": "shopify://collections/new-year-new-view"
+          }
+        },
         "announcement-bar-0": {
           "type": "announcement",
           "settings": {
             "text": "FREE SHIPPING ON ORDERS OVER $50",
             "link": ""
-          }
-        },
-        "announcement_XiUDac": {
-          "type": "announcement",
-          "disabled": true,
-          "settings": {
-            "text": "20% OFF SELECT PRODUCTS - USE CODE SAVE20!",
-            "link": "shopify://collections/new-year-new-view"
           }
         },
         "announcement_KWRqw6": {
@@ -39,8 +38,8 @@
         }
       },
       "block_order": [
-        "announcement-bar-0",
         "announcement_XiUDac",
+        "announcement-bar-0",
         "announcement_KWRqw6"
       ],
       "settings": {
