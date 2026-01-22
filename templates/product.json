@@ -66,6 +66,12 @@
           "type": "description",
           "settings": {}
         },
+        "sku_RjFYqf": {
+          "type": "sku",
+          "settings": {
+            "text_style": "body"
+          }
+        },
         "share": {
           "type": "share",
           "settings": {
@@ -83,6 +89,7 @@
         "buy_buttons",
         "complementary_xL646P",
         "description",
+        "sku_RjFYqf",
         "share"
       ],
       "settings": {
@@ -92,9 +99,9 @@
         "constrain_to_viewport": true,
         "media_fit": "contain",
         "gallery_layout": "stacked",
+        "mobile_thumbnails": "hide",
         "media_position": "left",
         "image_zoom": "lightbox",
-        "mobile_thumbnails": "hide",
         "hide_variants": true,
         "enable_video_looping": true,
         "padding_top": 36,
@@ -108,13 +115,13 @@
         "heading_size": "h2",
         "products_to_show": 4,
         "columns_desktop": 4,
+        "columns_mobile": "2",
         "color_scheme": "scheme-1",
         "image_ratio": "square",
         "image_shape": "default",
         "show_secondary_image": true,
         "show_vendor": false,
         "show_rating": false,
-        "columns_mobile": "2",
         "padding_top": 36,
         "padding_bottom": 28
       }
