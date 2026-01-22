@@ -30,7 +30,6 @@
     },
     "featured_collection_4WMWx6": {
       "type": "featured-collection",
-      "disabled": true,
       "settings": {
         "collection": "ceramics",
         "products_to_show": 25,
@@ -59,6 +58,7 @@
     },
     "replo_ceramic_collection_FJGDqy": {
       "type": "replo-ceramic-collection",
+      "disabled": true,
       "name": "Ceramic Collection",
       "settings": {}
     }
