@@ -1,0 +1,542 @@
+<div class="upload-container">
+  <div class="upload-card">
+    <h1 class="upload-title">Upload Image</h1>
+
+    <div id="upload-area" class="upload-area">
+      <div class="upload-icon">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="17 8 12 3 7 8"/>
+          <line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+      </div>
+      <p class="upload-text">Drag and drop your image here</p>
+      <p class="upload-subtext">or</p>
+      <button type="button" id="browse-btn" class="browse-btn">Browse Files</button>
+      <input type="file" id="file-input" accept="image/jpeg,image/png,image/gif" hidden>
+      <p class="upload-hint">JPEG, PNG, or GIF - Max 10MB</p>
+    </div>
+
+    <div id="preview-area" class="preview-area" hidden>
+      <img id="preview-image" class="preview-image" alt="Preview" width="400" height="300">
+      <div class="preview-info">
+        <span id="file-name" class="file-name"></span>
+        <span id="file-size" class="file-size"></span>
+      </div>
+      <button type="button" id="remove-btn" class="remove-btn">Remove</button>
+    </div>
+
+    <div id="progress-area" class="progress-area" hidden>
+      <div class="progress-bar">
+        <div id="progress-fill" class="progress-fill"></div>
+      </div>
+      <span id="progress-text" class="progress-text">Uploading... 0%</span>
+    </div>
+
+    <div id="message-area" class="message-area" hidden>
+      <div id="message-content" class="message-content"></div>
+    </div>
+
+    <button type="button" id="upload-btn" class="upload-btn" disabled>Upload Image</button>
+  </div>
+</div>
+
+{% stylesheet %}
+.upload-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: #f5f5f5;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.upload-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  padding: 40px;
+  width: 100%;
+  max-width: 480px;
+}
+
+.upload-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0 0 24px;
+  text-align: center;
+  color: #1a1a1a;
+}
+
+.upload-area {
+  border: 2px dashed #d0d0d0;
+  border-radius: 8px;
+  padding: 40px 20px;
+  text-align: center;
+  transition: border-color 0.2s, background-color 0.2s;
+  cursor: pointer;
+}
+
+.upload-area:hover,
+.upload-area.dragover {
+  border-color: #0066cc;
+  background-color: #f0f7ff;
+}
+
+.upload-icon {
+  color: #666;
+  margin-bottom: 16px;
+}
+
+.upload-text {
+  font-size: 16px;
+  color: #333;
+  margin: 0 0 8px;
+}
+
+.upload-subtext {
+  font-size: 14px;
+  color: #888;
+  margin: 0 0 12px;
+}
+
+.browse-btn {
+  background: #0066cc;
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.browse-btn:hover {
+  background: #0052a3;
+}
+
+.upload-hint {
+  font-size: 12px;
+  color: #888;
+  margin: 16px 0 0;
+}
+
+.preview-area {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+}
+
+.preview-image {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+.preview-info {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 12px;
+}
+
+.file-name {
+  font-weight: 500;
+  color: #333;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.remove-btn {
+  background: none;
+  border: 1px solid #cc0000;
+  color: #cc0000;
+  padding: 6px 16px;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.remove-btn:hover {
+  background: #cc0000;
+  color: #fff;
+}
+
+.progress-area {
+  margin-top: 20px;
+}
+
+.progress-bar {
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #0066cc;
+  width: 0%;
+  transition: width 0.3s;
+}
+
+.progress-text {
+  display: block;
+  text-align: center;
+  font-size: 13px;
+  color: #666;
+  margin-top: 8px;
+}
+
+.message-area {
+  margin-top: 20px;
+}
+
+.message-content {
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.message-content.success {
+  background: #e6f4ea;
+  color: #1e7e34;
+}
+
+.message-content.error {
+  background: #fdecea;
+  color: #c62828;
+}
+
+.upload-btn {
+  width: 100%;
+  margin-top: 20px;
+  padding: 14px;
+  background: #0066cc;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s, opacity 0.2s;
+}
+
+.upload-btn:hover:not(:disabled) {
+  background: #0052a3;
+}
+
+.upload-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+{% endstylesheet %}
+
+{% javascript %}
+(function() {
+  // ============================================
+  // CONFIGURATION - Update these values
+  // ============================================
+  const CONFIG = {
+    // Premier NX API endpoint - UPDATE THIS when provided
+    apiEndpoint: 'https://api.premiernx.com/upload-file',
+
+    // Validation settings (from spec)
+    maxFileSize: 10 * 1024 * 1024, // 10MB
+    allowedTypes: ['image/jpeg', 'image/png', 'image/gif'],
+    minDimension: 256,
+    maxDimension: 10000
+  };
+  // ============================================
+
+  const elements = {
+    uploadArea: document.getElementById('upload-area'),
+    fileInput: document.getElementById('file-input'),
+    browseBtn: document.getElementById('browse-btn'),
+    previewArea: document.getElementById('preview-area'),
+    previewImage: document.getElementById('preview-image'),
+    fileName: document.getElementById('file-name'),
+    fileSize: document.getElementById('file-size'),
+    removeBtn: document.getElementById('remove-btn'),
+    progressArea: document.getElementById('progress-area'),
+    progressFill: document.getElementById('progress-fill'),
+    progressText: document.getElementById('progress-text'),
+    messageArea: document.getElementById('message-area'),
+    messageContent: document.getElementById('message-content'),
+    uploadBtn: document.getElementById('upload-btn')
+  };
+
+  let selectedFile = null;
+  let uploadToken = null;
+
+  // Get token from URL
+  function getTokenFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('token');
+  }
+
+  // Format file size
+  function formatFileSize(bytes) {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+  }
+
+  // Show message
+  function showMessage(text, type) {
+    elements.messageContent.textContent = text;
+    elements.messageContent.className = 'message-content ' + type;
+    elements.messageArea.hidden = false;
+  }
+
+  // Hide message
+  function hideMessage() {
+    elements.messageArea.hidden = true;
+  }
+
+  // Validate file type
+  function validateFileType(file) {
+    if (!CONFIG.allowedTypes.includes(file.type)) {
+      return 'Invalid file type. Please upload a JPEG, PNG, or GIF image.';
+    }
+    return null;
+  }
+
+  // Validate file size
+  function validateFileSize(file) {
+    if (file.size > CONFIG.maxFileSize) {
+      return 'File is too large. Maximum size is 10MB.';
+    }
+    return null;
+  }
+
+  // Validate image dimensions
+  function validateDimensions(img) {
+    const width = img.naturalWidth;
+    const height = img.naturalHeight;
+
+    if (width < CONFIG.minDimension || height < CONFIG.minDimension) {
+      return `Image is too small. Minimum dimensions are ${CONFIG.minDimension}x${CONFIG.minDimension} pixels.`;
+    }
+    if (width > CONFIG.maxDimension || height > CONFIG.maxDimension) {
+      return `Image is too large. Maximum dimensions are ${CONFIG.maxDimension}x${CONFIG.maxDimension} pixels.`;
+    }
+    return null;
+  }
+
+  // Handle file selection
+  function handleFile(file) {
+    hideMessage();
+
+    // Validate type
+    let error = validateFileType(file);
+    if (error) {
+      showMessage(error, 'error');
+      return;
+    }
+
+    // Validate size
+    error = validateFileSize(file);
+    if (error) {
+      showMessage(error, 'error');
+      return;
+    }
+
+    // Create preview and validate dimensions
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const img = new Image();
+      img.onload = function() {
+        error = validateDimensions(img);
+        if (error) {
+          showMessage(error, 'error');
+          return;
+        }
+
+        // File is valid
+        selectedFile = file;
+        elements.previewImage.src = e.target.result;
+        elements.fileName.textContent = file.name;
+        elements.fileSize.textContent = formatFileSize(file.size);
+        elements.uploadArea.hidden = true;
+        elements.previewArea.hidden = false;
+        elements.uploadBtn.disabled = false;
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // Remove selected file
+  function removeFile() {
+    selectedFile = null;
+    elements.fileInput.value = '';
+    elements.previewArea.hidden = true;
+    elements.uploadArea.hidden = false;
+    elements.uploadBtn.disabled = true;
+    hideMessage();
+  }
+
+  // Upload file
+  async function uploadFile() {
+    if (!selectedFile || !uploadToken) return;
+
+    elements.uploadBtn.disabled = true;
+    elements.progressArea.hidden = false;
+    elements.progressFill.style.width = '0%';
+    elements.progressText.textContent = 'Requesting upload URL...';
+    hideMessage();
+
+    try {
+      // Step 1: Get presigned URL from Premier NX API
+      const presignResponse = await fetch(CONFIG.apiEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          file_name: selectedFile.name,
+          file_type: selectedFile.type,
+          token: uploadToken
+        })
+      });
+
+      if (!presignResponse.ok) {
+        const errorData = await presignResponse.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Failed to get upload URL. Your link may have expired.');
+      }
+
+      const presignData = await presignResponse.json();
+
+      if (!presignData.uploadUrl) {
+        throw new Error('Invalid response from server.');
+      }
+
+      // Step 2: Upload directly to S3
+      elements.progressText.textContent = 'Uploading...';
+
+      await new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+
+        xhr.upload.addEventListener('progress', function(e) {
+          if (e.lengthComputable) {
+            const percent = Math.round((e.loaded / e.total) * 100);
+            elements.progressFill.style.width = percent + '%';
+            elements.progressText.textContent = 'Uploading... ' + percent + '%';
+          }
+        });
+
+        xhr.addEventListener('load', function() {
+          if (xhr.status === 200) {
+            resolve();
+          } else {
+            reject(new Error('Upload failed. Please try again.'));
+          }
+        });
+
+        xhr.addEventListener('error', function() {
+          reject(new Error('Upload failed. Please check your connection.'));
+        });
+
+        xhr.open('PUT', presignData.uploadUrl);
+        xhr.setRequestHeader('Content-Type', selectedFile.type);
+        xhr.send(selectedFile);
+      });
+
+      // Success
+      elements.progressArea.hidden = true;
+      showMessage('Image uploaded successfully!', 'success');
+      elements.uploadBtn.textContent = 'Upload Complete';
+
+    } catch (error) {
+      elements.progressArea.hidden = true;
+      showMessage(error.message, 'error');
+      elements.uploadBtn.disabled = false;
+    }
+  }
+
+  // Initialize
+  function init() {
+    uploadToken = getTokenFromUrl();
+
+    if (!uploadToken) {
+      showMessage('Invalid upload link. Please request a new link from customer service.', 'error');
+      elements.uploadArea.style.pointerEvents = 'none';
+      elements.uploadArea.style.opacity = '0.5';
+      return;
+    }
+
+    // Browse button click
+    elements.browseBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      elements.fileInput.click();
+    });
+
+    // Upload area click
+    elements.uploadArea.addEventListener('click', function() {
+      elements.fileInput.click();
+    });
+
+    // File input change
+    elements.fileInput.addEventListener('change', function() {
+      if (this.files && this.files[0]) {
+        handleFile(this.files[0]);
+      }
+    });
+
+    // Drag and drop
+    elements.uploadArea.addEventListener('dragover', function(e) {
+      e.preventDefault();
+      this.classList.add('dragover');
+    });
+
+    elements.uploadArea.addEventListener('dragleave', function(e) {
+      e.preventDefault();
+      this.classList.remove('dragover');
+    });
+
+    elements.uploadArea.addEventListener('drop', function(e) {
+      e.preventDefault();
+      this.classList.remove('dragover');
+      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+        handleFile(e.dataTransfer.files[0]);
+      }
+    });
+
+    // Remove button
+    elements.removeBtn.addEventListener('click', removeFile);
+
+    // Upload button
+    elements.uploadBtn.addEventListener('click', uploadFile);
+  }
+
+  // Run when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Image Upload",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Image Upload"
+    }
+  ]
+}
+{% endschema %}
