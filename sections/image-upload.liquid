@@ -30,6 +30,23 @@
       </div>
 
       <div id="upload-content">
+        {%- if section.settings.show_reference_image and section.settings.reference_image_url != blank -%}
+          <div class="reference-image">
+            <p class="reference-image__label">{{ section.settings.reference_label }}</p>
+            <img
+              src="{{ section.settings.reference_image_url }}"
+              alt="{{ section.settings.reference_label }}"
+              class="reference-image__img"
+              width="400"
+              height="300"
+              loading="lazy"
+            >
+            {%- if section.settings.reference_caption != blank -%}
+              <p class="reference-image__caption">{{ section.settings.reference_caption }}</p>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
         <div id="upload-area" class="upload-area">
         <div class="upload-icon">
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -86,6 +103,34 @@
   margin: 0 0 24px;
   text-align: center;
   color: rgb(var(--color-foreground));
+}
+
+.reference-image {
+  text-align: center;
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(var(--color-foreground), 0.1);
+}
+
+.reference-image__label {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: rgb(var(--color-foreground));
+  margin: 0 0 12px;
+}
+
+.reference-image__img {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: var(--buttons-radius);
+  object-fit: contain;
+}
+
+.reference-image__caption {
+  font-size: 1.3rem;
+  color: rgba(var(--color-foreground), 0.7);
+  margin: 12px 0 0;
+  line-height: 1.5;
 }
 
 .upload-area {
@@ -566,6 +611,34 @@
       "id": "heading",
       "default": "Upload Image",
       "label": "Heading"
+    },
+    {
+      "type": "header",
+      "content": "Reference image"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_reference_image",
+      "default": true,
+      "label": "Show reference image"
+    },
+    {
+      "type": "text",
+      "id": "reference_label",
+      "default": "Please take a photo similar to this example:",
+      "label": "Reference label"
+    },
+    {
+      "type": "url",
+      "id": "reference_image_url",
+      "default": "https://cdn.shopify.com/s/files/1/0173/8181/8422/files/97756000.jpg",
+      "label": "Reference image URL"
+    },
+    {
+      "type": "text",
+      "id": "reference_caption",
+      "default": "Take a clear photo of the product label showing the model number",
+      "label": "Reference caption"
     },
     {
       "type": "color_scheme",
