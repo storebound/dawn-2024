@@ -1,77 +1,96 @@
-<div class="upload-container">
-  <div class="upload-card">
-    <h1 class="upload-title">Upload Image</h1>
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
 
-    <div id="upload-area" class="upload-area">
-      <div class="upload-icon">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-          <polyline points="17 8 12 3 7 8"/>
-          <line x1="12" y1="3" x2="12" y2="15"/>
-        </svg>
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width page-width--narrow section-{{ section.id }}-padding">
+    <div class="upload-card">
+      <h1 class="upload-title h1">{{ section.settings.heading }}</h1>
+
+      <div id="token-error" class="token-error" hidden>
+        <div class="token-error__icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+        </div>
+        <p class="token-error__title">Invalid or missing upload link</p>
+        <p class="token-error__message">This upload link is invalid, expired, or has already been used. Please request a new link from customer service, or email your image directly to <a href="mailto:support@bydash.com">support@bydash.com</a></p>
       </div>
-      <p class="upload-text">Drag and drop your image here</p>
-      <p class="upload-subtext">or</p>
-      <button type="button" id="browse-btn" class="browse-btn">Browse Files</button>
-      <input type="file" id="file-input" accept="image/jpeg,image/png,image/gif" hidden>
-      <p class="upload-hint">JPEG, PNG, or GIF - Max 10MB</p>
-    </div>
 
-    <div id="preview-area" class="preview-area" hidden>
-      <img id="preview-image" class="preview-image" alt="Preview" width="400" height="300">
-      <div class="preview-info">
-        <span id="file-name" class="file-name"></span>
-        <span id="file-size" class="file-size"></span>
+      <div id="upload-content">
+        <div id="upload-area" class="upload-area">
+        <div class="upload-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+        </div>
+        <p class="upload-text">Drag and drop your image here</p>
+        <p class="upload-subtext">or</p>
+        <button type="button" id="browse-btn" class="button button--secondary">Browse Files</button>
+        <input type="file" id="file-input" accept="image/jpeg,image/png,image/gif,image/heic,image/heif" hidden>
+        <p class="upload-hint">JPEG, PNG, GIF, or HEIC - Max 10MB</p>
       </div>
-      <button type="button" id="remove-btn" class="remove-btn">Remove</button>
-    </div>
 
-    <div id="progress-area" class="progress-area" hidden>
-      <div class="progress-bar">
-        <div id="progress-fill" class="progress-fill"></div>
+      <div id="preview-area" class="preview-area" hidden>
+        <img id="preview-image" class="preview-image" alt="Preview" width="400" height="300">
+        <div class="preview-info">
+          <span id="file-name" class="file-name"></span>
+          <span id="file-size" class="file-size"></span>
+        </div>
+        <button type="button" id="remove-btn" class="remove-btn">Remove</button>
       </div>
-      <span id="progress-text" class="progress-text">Uploading... 0%</span>
-    </div>
 
-    <div id="message-area" class="message-area" hidden>
-      <div id="message-content" class="message-content"></div>
-    </div>
+      <div id="progress-area" class="progress-area" hidden>
+        <div class="progress-bar">
+          <div id="progress-fill" class="progress-fill"></div>
+        </div>
+        <span id="progress-text" class="progress-text">Uploading... 0%</span>
+      </div>
 
-    <button type="button" id="upload-btn" class="upload-btn" disabled>Upload Image</button>
+      <div id="message-area" class="message-area" hidden>
+        <div id="message-content" class="message-content"></div>
+      </div>
+
+      <button type="button" id="upload-btn" class="button" disabled>Upload Image</button>
+      </div>
+    </div>
   </div>
 </div>
 
 {% stylesheet %}
-.upload-container {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  background: #f5f5f5;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-}
-
 .upload-card {
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  background: rgb(var(--color-background));
+  border-radius: var(--buttons-radius);
+  box-shadow: 0 2px 12px rgba(var(--color-foreground), 0.08);
   padding: 40px;
   width: 100%;
-  max-width: 480px;
+  max-width: 520px;
+  margin: 0 auto;
 }
 
 .upload-title {
-  font-size: 24px;
-  font-weight: 600;
   margin: 0 0 24px;
   text-align: center;
-  color: #1a1a1a;
+  color: rgb(var(--color-foreground));
 }
 
 .upload-area {
-  border: 2px dashed #d0d0d0;
-  border-radius: 8px;
+  border: 2px dashed rgba(var(--color-foreground), 0.2);
+  border-radius: var(--buttons-radius);
   padding: 40px 20px;
   text-align: center;
   transition: border-color 0.2s, background-color 0.2s;
@@ -80,52 +99,36 @@
 
 .upload-area:hover,
 .upload-area.dragover {
-  border-color: #0066cc;
-  background-color: #f0f7ff;
+  border-color: rgb(var(--color-button));
+  background-color: rgba(var(--color-button), 0.05);
 }
 
 .upload-icon {
-  color: #666;
+  color: rgba(var(--color-foreground), 0.6);
   margin-bottom: 16px;
 }
 
 .upload-text {
-  font-size: 16px;
-  color: #333;
+  font-size: 1.6rem;
+  color: rgb(var(--color-foreground));
   margin: 0 0 8px;
 }
 
 .upload-subtext {
-  font-size: 14px;
-  color: #888;
-  margin: 0 0 12px;
-}
-
-.browse-btn {
-  background: #0066cc;
-  color: #fff;
-  border: none;
-  padding: 10px 24px;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.browse-btn:hover {
-  background: #0052a3;
+  font-size: 1.4rem;
+  color: rgba(var(--color-foreground), 0.7);
+  margin: 0 0 16px;
 }
 
 .upload-hint {
-  font-size: 12px;
-  color: #888;
+  font-size: 1.2rem;
+  color: rgba(var(--color-foreground), 0.6);
   margin: 16px 0 0;
 }
 
 .preview-area {
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
+  border: 1px solid rgba(var(--color-foreground), 0.15);
+  border-radius: var(--buttons-radius);
   padding: 16px;
   text-align: center;
 }
@@ -135,20 +138,21 @@
   max-height: 200px;
   border-radius: 4px;
   margin-bottom: 12px;
+  object-fit: contain;
 }
 
 .preview-info {
   display: flex;
   justify-content: center;
   gap: 16px;
-  font-size: 14px;
-  color: #666;
+  font-size: 1.4rem;
+  color: rgba(var(--color-foreground), 0.7);
   margin-bottom: 12px;
 }
 
 .file-name {
   font-weight: 500;
-  color: #333;
+  color: rgb(var(--color-foreground));
   max-width: 200px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -157,18 +161,18 @@
 
 .remove-btn {
   background: none;
-  border: 1px solid #cc0000;
-  color: #cc0000;
-  padding: 6px 16px;
-  border-radius: 4px;
-  font-size: 13px;
+  border: 1px solid rgba(var(--color-foreground), 0.3);
+  color: rgb(var(--color-foreground));
+  padding: 8px 20px;
+  border-radius: var(--buttons-radius);
+  font-size: 1.3rem;
   cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 }
 
 .remove-btn:hover {
-  background: #cc0000;
-  color: #fff;
+  background: rgba(var(--color-foreground), 0.1);
+  border-color: rgba(var(--color-foreground), 0.5);
 }
 
 .progress-area {
@@ -177,14 +181,14 @@
 
 .progress-bar {
   height: 8px;
-  background: #e0e0e0;
+  background: rgba(var(--color-foreground), 0.1);
   border-radius: 4px;
   overflow: hidden;
 }
 
 .progress-fill {
   height: 100%;
-  background: #0066cc;
+  background: rgb(var(--color-button));
   width: 0%;
   transition: width 0.3s;
 }
@@ -192,8 +196,8 @@
 .progress-text {
   display: block;
   text-align: center;
-  font-size: 13px;
-  color: #666;
+  font-size: 1.3rem;
+  color: rgba(var(--color-foreground), 0.7);
   margin-top: 8px;
 }
 
@@ -203,42 +207,60 @@
 
 .message-content {
   padding: 12px 16px;
-  border-radius: 6px;
-  font-size: 14px;
+  border-radius: var(--buttons-radius);
+  font-size: 1.4rem;
   text-align: center;
 }
 
 .message-content.success {
-  background: #e6f4ea;
-  color: #1e7e34;
+  background: rgba(22, 163, 74, 0.1);
+  color: rgb(22, 163, 74);
+  border: 1px solid rgba(22, 163, 74, 0.3);
 }
 
 .message-content.error {
-  background: #fdecea;
-  color: #c62828;
+  background: rgba(220, 38, 38, 0.1);
+  color: rgb(220, 38, 38);
+  border: 1px solid rgba(220, 38, 38, 0.3);
 }
 
-.upload-btn {
+#upload-btn {
   width: 100%;
   margin-top: 20px;
-  padding: 14px;
-  background: #0066cc;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.2s, opacity 0.2s;
 }
 
-.upload-btn:hover:not(:disabled) {
-  background: #0052a3;
-}
-
-.upload-btn:disabled {
+#upload-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.token-error {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.token-error__icon {
+  color: rgba(220, 38, 38, 0.8);
+  margin-bottom: 20px;
+}
+
+.token-error__title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: rgb(var(--color-foreground));
+  margin: 0 0 12px;
+}
+
+.token-error__message {
+  font-size: 1.4rem;
+  color: rgba(var(--color-foreground), 0.7);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.token-error__message a {
+  color: rgb(var(--color-foreground));
+  font-weight: 500;
 }
 {% endstylesheet %}
 
@@ -253,13 +275,15 @@
 
     // Validation settings (from spec)
     maxFileSize: 10 * 1024 * 1024, // 10MB
-    allowedTypes: ['image/jpeg', 'image/png', 'image/gif'],
+    allowedTypes: ['image/jpeg', 'image/png', 'image/gif', 'image/heic', 'image/heif'],
     minDimension: 256,
     maxDimension: 10000
   };
   // ============================================
 
   const elements = {
+    tokenError: document.getElementById('token-error'),
+    uploadContent: document.getElementById('upload-content'),
     uploadArea: document.getElementById('upload-area'),
     fileInput: document.getElementById('file-input'),
     browseBtn: document.getElementById('browse-btn'),
@@ -307,7 +331,7 @@
   // Validate file type
   function validateFileType(file) {
     if (!CONFIG.allowedTypes.includes(file.type)) {
-      return 'Invalid file type. Please upload a JPEG, PNG, or GIF image.';
+      return 'Invalid file type. Please upload a JPEG, PNG, GIF, or HEIC image.';
     }
     return null;
   }
@@ -413,13 +437,13 @@
 
       if (!presignResponse.ok) {
         const errorData = await presignResponse.json().catch(() => ({}));
-        throw new Error(errorData.message || 'Failed to get upload URL. Your link may have expired.');
+        throw new Error(errorData.message || 'Failed to get upload URL. Your link may have expired. If this issue persists, please email your image to support@bydash.com');
       }
 
       const presignData = await presignResponse.json();
 
       if (!presignData.uploadUrl) {
-        throw new Error('Invalid response from server.');
+        throw new Error('Invalid response from server. Please try again, or email your image to support@bydash.com');
       }
 
       // Step 2: Upload directly to S3
@@ -440,12 +464,12 @@
           if (xhr.status === 200) {
             resolve();
           } else {
-            reject(new Error('Upload failed. Please try again.'));
+            reject(new Error('Upload failed. Please try again, or email your image to support@bydash.com'));
           }
         });
 
         xhr.addEventListener('error', function() {
-          reject(new Error('Upload failed. Please check your connection.'));
+          reject(new Error('Upload failed. Please check your connection and try again, or email your image to support@bydash.com'));
         });
 
         xhr.open('PUT', presignData.uploadUrl);
@@ -470,9 +494,8 @@
     uploadToken = getTokenFromUrl();
 
     if (!uploadToken) {
-      showMessage('Invalid upload link. Please request a new link from customer service.', 'error');
-      elements.uploadArea.style.pointerEvents = 'none';
-      elements.uploadArea.style.opacity = '0.5';
+      elements.tokenError.hidden = false;
+      elements.uploadContent.hidden = true;
       return;
     }
 
@@ -532,7 +555,49 @@
 {% schema %}
 {
   "name": "Image Upload",
-  "settings": [],
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "Upload Image",
+      "label": "Heading"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 36
+    }
+  ],
   "presets": [
     {
       "name": "Image Upload"
