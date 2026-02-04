@@ -442,7 +442,7 @@
     if (isHeicFile(file)) {
       selectedFile = file;
       // Show placeholder for HEIC since browsers can't display it
-      elements.previewImage.src = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="200" height="150" viewBox="0 0 200 150"><rect fill="#f3f4f6" width="200" height="150"/><text x="100" y="70" text-anchor="middle" fill="#6b7280" font-family="system-ui" font-size="14">HEIC Image</text><text x="100" y="90" text-anchor="middle" fill="#9ca3af" font-family="system-ui" font-size="12">(Preview not available)</text></svg>');
+      elements.previewImage.src = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="200" height="150" viewBox="0 0 200 150"><rect fill="#f3f4f6" width="200" height="150"/><circle cx="100" cy="50" r="24" fill="#22c55e"/><path d="M90 50 L97 57 L112 42" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/><text x="100" y="95" text-anchor="middle" fill="#6b7280" font-family="system-ui" font-size="14">HEIC Image Selected</text><text x="100" y="115" text-anchor="middle" fill="#9ca3af" font-family="system-ui" font-size="12">(Preview not available)</text></svg>');
       elements.fileName.textContent = file.name;
       elements.fileSize.textContent = formatFileSize(file.size);
       elements.uploadArea.hidden = true;
