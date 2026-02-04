@@ -336,200 +336,210 @@ document.querySelectorAll('span[role="tab"]').forEach(el => {
       {%- endif -%}
     {%- endfor -%}
     {% if current_tags == blank or current_tags.size == 0 %}
-      <div class="grouped-by-category">
+      {%- comment -%}
+        SECTION RENDERING API APPROACH
+        ==============================
+        Instead of looping through all blog.articles for each category (which hits
+        the 50-iteration Liquid limit), we render placeholder containers and use
+        JavaScript to fetch each category via the Section Rendering API.
+
+        The key: fetching /blogs/recipes/tagged/{tag}?section_id=category-articles
+        means Shopify pre-filters blog.articles to only that tag BEFORE Liquid runs.
+        This bypasses the 50-iteration limit entirely.
+      {%- endcomment -%}
+
+      <div class="grouped-by-category" id="category-groups-container">
         {% assign recipe_tag_group = shop.metaobjects.recipe_tag_group.values %}
         {% for block in section.blocks %}
           {% assign block_tag = block.settings.tag %}
-          {% assign matching_metaobject = null %}
-          {% for tag_obj in recipe_tag_group %}
-            {% if tag_obj.tag == block_tag %}
-              {% assign matching_metaobject = tag_obj %}
-            {% endif %}
-          {% endfor %}
-          {% if matching_metaobject %}
-            {%- assign display_title = block_tag -%}
-            {%- if matching_metaobject.display_tag != blank -%}
-              {%- assign display_title = matching_metaobject.display_tag -%}
-            {%- endif -%}
-            <div class="main-blog-category-group">
-              <h2 class="main-blog-category-header">{{ display_title }}</h2>
-              <div class="main-blog-recipekit-grid">
-                {% assign handles_string = matching_metaobject.recipe_1
-                  | append: ','
-                  | append: matching_metaobject.recipe_2
-                  | append: ','
-                  | append: matching_metaobject.recipe_3
-                %}
-                {% assign handles_array = handles_string | split: ',' %}
+          {% if block_tag != blank %}
+            {% assign matching_metaobject = null %}
+            {% for tag_obj in recipe_tag_group %}
+              {% if tag_obj.tag == block_tag %}
+                {% assign matching_metaobject = tag_obj %}
+              {% endif %}
+            {% endfor %}
+            {% if matching_metaobject %}
+              {%- assign display_title = block_tag -%}
+              {%- if matching_metaobject.display_tag != blank -%}
+                {%- assign display_title = matching_metaobject.display_tag -%}
+              {%- endif -%}
+              {%- assign articles_count = 3 -%}
+              {%- if block.settings.double_articles -%}
+                {%- assign articles_count = 7 -%}
+              {%- endif -%}
 
-                {% comment %}Count valid articles from metaobject handles{% endcomment %}
-                {% assign valid_articles_count = 0 %}
-                {% assign valid_articles = '' %}
-                {% for recipe_handle in handles_array %}
-                  {% assign recipe_handle = recipe_handle | strip %}
-                  {% if recipe_handle != blank %}
-                    {% assign article = blog.articles | where: 'handle', recipe_handle | first %}
-                    {% if article %}
-                      {% assign valid_articles_count = valid_articles_count | plus: 1 %}
-                      {% assign valid_articles = valid_articles | append: article.handle | append: ',' %}
-                    {% endif %}
-                  {% endif %}
-                {% endfor %}
+              <div
+                class="main-blog-category-group"
+                data-category-tag="{{ block_tag | handle }}"
+                data-category-display="{{ display_title | escape }}"
+                data-articles-count="{{ articles_count }}"
+                data-view-more-image="{% if block.settings.view_more_image != blank %}{{ block.settings.view_more_image | image_url: width: 600, height: 600, crop: 'center' }}{% endif %}"
+              >
+                <h2 class="main-blog-category-header">{{ display_title }}</h2>
 
-                {% comment %}Determine how many articles to show based on double_articles setting{% endcomment %}
-                {% assign target_article_count = 3 %}
-                {% if block.settings.double_articles %}
-                  {% assign target_article_count = 7 %}
-                {% endif %}
-
-                {% comment %}Get recent articles from this category if needed{% endcomment %}
-                {% assign articles_needed = target_article_count | minus: valid_articles_count %}
-                {% if articles_needed > 0 %}
-                  {% comment %}Debug info{% endcomment %}
-                  {% assign added_articles = 0 %}
-                  {% for cat_article in blog.articles %}
-                    {% assign has_tag = false %}
-                    {% for article_tag in cat_article.tags %}
-                      {% if article_tag == block_tag %}
-                        {% assign has_tag = true %}
-                        {% break %}
-                      {% endif %}
-                    {% endfor %}
-
-                    {% if has_tag %}
-                      {% unless valid_articles contains cat_article.handle %}
-                        {% assign valid_articles = valid_articles | append: cat_article.handle | append: ',' %}
-                        {% assign added_articles = added_articles | plus: 1 %}
-                        {% if added_articles >= articles_needed %}
-                          {% break %}
-                        {% endif %}
-                      {% endunless %}
-                    {% endif %}
-                  {% endfor %}
-                {% endif %}
-
-                {% comment %}Display all collected articles{% endcomment %}
-                {% assign final_handles = valid_articles | split: ',' %}
-                {% for recipe_handle in final_handles %}
-                  {% assign recipe_handle = recipe_handle | strip %}
-                  {% if recipe_handle != blank %}
-                    {% assign article = blog.articles | where: 'handle', recipe_handle | first %}
-                    {% if article %}
-                      {%- assign rk_resource_id = article.id | downcase -%}
-                      {%- assign rk_mf = article.metafields.recipekit[rk_resource_id] -%}
-                      <div class="recipekit-card-outer">
-                        <a
-                          href="{{ article.url }}"
-                          class="recipekit-card-link"
-                          aria-label="{{ article.title | escape }}"
-                        >
-                          <div class="recipekit-card">
-                            <div class="recipekit-card-image-wrapper">
-                              {%- if rk_mf and rk_mf.recipe_image != blank -%}
-                                {%- assign image_url = rk_mf.recipe_image -%}
-                                {%- if image_url contains 'cloudinary.com' -%}
-                                  {%- assign rk_last_url = image_url | split: 'upload/' -%}
-                                  {%- assign card_image = rk_last_url[1]
-                                    | prepend: 'https://res.cloudinary.com/hsxfx8igq/image/upload/t_1x1_recipe_image,f_auto/'
-                                  -%}
-                                {%- elsif image_url contains 'backblazeb2.com' -%}
-                                  {%- assign rk_last_url = image_url
-                                    | split: 'backblazeb2.com/file/recipekit-bucket/'
-                                  -%}
-                                  {%- assign card_image = 'https://images.getrecipekit.com/'
-                                    | append: rk_last_url[1]
-                                    | append: '?aspect_ratio=1:1&quality=90&'
-                                  -%}
-                                {%- elsif image_url contains 'cdn.shopify.com' -%}
-                                  {%- assign card_image = image_url | append: '&width=1000&height=1000' -%}
-                                {%- else -%}
-                                  {%- assign card_image = image_url -%}
-                                {%- endif -%}
-                                <img
-                                  class="recipekit-card-image"
-                                  src="{{ card_image }}"
-                                  alt="{{ article.title | escape }}"
-                                  width="1000"
-                                  height="1000"
-                                  loading="lazy"
-                                >
-                              {%- elsif article.image -%}
-                                <img
-                                  class="recipekit-card-image"
-                                  src="{{ article.image | image_url: width: 1000, height: 1000, scale: 2 }}"
-                                  alt="{{ article.title | escape }}"
-                                  width="1000"
-                                  height="1000"
-                                  loading="lazy"
-                                >
-                              {%- endif -%}
-                              {%- assign recipe_rating_num = rk_mf.recipe_rating | plus: 0 -%}
-                              {%- assign rating_count_num = rk_mf.rating_count | plus: 0 -%}
-                              {% if recipe_rating_num > 4 and rating_count_num > 4 %}
-                                <span class="recipekit-top-rated-badge">Top Rated</span>
-                              {% endif %}
-                              {%- if rk_mf and rk_mf.prep_time != blank -%}
-                                <span class="recipekit-prep-time">{{ rk_mf.prep_time }}</span>
-                              {%- endif -%}
-                            </div>
-                          </div>
-                        </a>
-                        <div class="recipekit-card-meta">
-                          <a href="{{ article.url }}" class="recipekit-card-title-link">
-                            <div class="recipekit-card-title">{{ article.title }}</div>
-                          </a>
-                        </div>
+                <div class="main-blog-recipekit-grid category-articles-placeholder">
+                  {%- comment -%} Skeleton loaders while content loads {%- endcomment -%}
+                  {%- for i in (1..articles_count) -%}
+                    <div class="recipekit-card-outer skeleton-card">
+                      <div class="recipekit-card">
+                        <div class="recipekit-card-image-wrapper skeleton-image"></div>
                       </div>
-                    {% endif %}
-                  {% endif %}
-                {% endfor %}
-                <!-- View More Card -->
-                <div class="recipekit-card-outer view-more-card">
-                  <a
-                    href="{{ base_url_prefix }}blogs/recipes/tagged/{{ block_tag | handle }}"
-                    class="recipekit-card-link"
-                    aria-label="{{ 'sections.main_blog.view_more_in' | t: category: display_title }}"
-                  >
-                    <div class="recipekit-card">
-                      <div class="recipekit-card-image-wrapper">
-                        {% if block.settings.view_more_image != blank %}
-                          <img
-                            class="recipekit-card-image"
-                            src="{{ block.settings.view_more_image | image_url: width: 600, height: 600, crop: 'center' }}"
-                            alt="View More"
-                            width="600"
-                            height="600"
-                            loading="lazy"
-                          >
-                        {% else %}
-                          <img
-                            class="recipekit-card-image"
-                            src="{{ 'Dash_Pattern_Icon_ca6e694e-c077-41e3-bfcb-71692f0d98f4.png' | file_url }}"
-                            alt="View More"
-                            width="600"
-                            height="600"
-                            loading="lazy"
-                          >
-                        {% endif %}
+                      <div class="recipekit-card-meta">
+                        <div class="skeleton-title"></div>
                       </div>
                     </div>
-                  </a>
-                  <div class="recipekit-card-meta">
-                    <a
-                      href="{{ base_url_prefix }}blogs/recipes/tagged/{{ block_tag | handle }}"
-                      class="recipekit-card-title-link"
-                    >
-                      <div class="recipekit-card-title">
-                        {{ 'sections.main_blog.view_more_recipes' | t: category: display_title }}
-                      </div>
-                    </a>
+                  {%- endfor -%}
+                  {%- comment -%} View More Card placeholder {%- endcomment -%}
+                  <div class="recipekit-card-outer view-more-card skeleton-card">
+                    <div class="recipekit-card">
+                      <div class="recipekit-card-image-wrapper skeleton-image"></div>
+                    </div>
+                    <div class="recipekit-card-meta">
+                      <div class="skeleton-title"></div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            {% endif %}
           {% endif %}
         {% endfor %}
       </div>
+
+      <style>
+        .skeleton-card {
+          animation: skeleton-pulse 1.5s ease-in-out infinite;
+        }
+        .skeleton-image {
+          background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+          background-size: 200% 100%;
+          animation: skeleton-shimmer 1.5s infinite;
+          aspect-ratio: 1;
+          border-radius: 8px;
+        }
+        .skeleton-title {
+          height: 1.2em;
+          width: 80%;
+          background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+          background-size: 200% 100%;
+          animation: skeleton-shimmer 1.5s infinite;
+          border-radius: 4px;
+          margin-top: 8px;
+        }
+        @keyframes skeleton-shimmer {
+          0% { background-position: 200% 0; }
+          100% { background-position: -200% 0; }
+        }
+        .category-load-error {
+          padding: 20px;
+          text-align: center;
+          color: #666;
+          grid-column: 1 / -1;
+        }
+      </style>
+
+      <script>
+        (function() {
+          const rootUrl = {{ routes.root_url | json }};
+          const blogHandle = {{ blog.handle | json }};
+          const defaultViewMoreImage = {{ 'Dash_Pattern_Icon_ca6e694e-c077-41e3-bfcb-71692f0d98f4.png' | file_url | json }};
+          const viewMoreText = {{ 'sections.main_blog.view_more_recipes' | t: category: '__CATEGORY__' | json }};
+
+          function loadCategoryArticles(categoryGroup) {
+            const tag = categoryGroup.dataset.categoryTag;
+            const displayTitle = categoryGroup.dataset.categoryDisplay;
+            const articlesCount = parseInt(categoryGroup.dataset.articlesCount, 10) || 7;
+            const viewMoreImage = categoryGroup.dataset.viewMoreImage || defaultViewMoreImage;
+            const placeholder = categoryGroup.querySelector('.category-articles-placeholder');
+
+            if (!tag || !placeholder) return;
+
+            const tagUrl = `${rootUrl}blogs/${blogHandle}/tagged/${tag}`;
+            const sectionUrl = `${tagUrl}?section_id=category-articles`;
+
+            fetch(sectionUrl)
+              .then(response => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.text();
+              })
+              .then(html => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const articlesContainer = doc.querySelector('.category-articles-grid');
+
+                if (articlesContainer) {
+                  const articles = articlesContainer.querySelectorAll('.recipekit-card-outer');
+                  const limitedArticles = Array.from(articles).slice(0, articlesCount);
+
+                  placeholder.innerHTML = '';
+
+                  limitedArticles.forEach(article => {
+                    placeholder.appendChild(article.cloneNode(true));
+                  });
+
+                  const viewMoreCard = document.createElement('div');
+                  viewMoreCard.className = 'recipekit-card-outer view-more-card';
+                  viewMoreCard.innerHTML = `
+                    <a href="${tagUrl}" class="recipekit-card-link" aria-label="View more ${displayTitle} recipes">
+                      <div class="recipekit-card">
+                        <div class="recipekit-card-image-wrapper">
+                          <img
+                            class="recipekit-card-image"
+                            src="${viewMoreImage}"
+                            alt="View More"
+                            width="600"
+                            height="600"
+                            loading="lazy"
+                          >
+                        </div>
+                      </div>
+                    </a>
+                    <div class="recipekit-card-meta">
+                      <a href="${tagUrl}" class="recipekit-card-title-link">
+                        <div class="recipekit-card-title">${viewMoreText.replace('__CATEGORY__', displayTitle)}</div>
+                      </a>
+                    </div>
+                  `;
+                  placeholder.appendChild(viewMoreCard);
+                } else {
+                  placeholder.innerHTML = '<p class="category-load-error">No articles found in this category.</p>';
+                }
+              })
+              .catch(error => {
+                console.error(`Error loading category ${tag}:`, error);
+                placeholder.innerHTML = `<p class="category-load-error">Unable to load articles. <a href="${tagUrl}">View category →</a></p>`;
+              });
+          }
+
+          function initCategoryLoading() {
+            const categoryGroups = document.querySelectorAll('.main-blog-category-group[data-category-tag]');
+
+            if ('IntersectionObserver' in window) {
+              const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                  if (entry.isIntersecting) {
+                    loadCategoryArticles(entry.target);
+                    observer.unobserve(entry.target);
+                  }
+                });
+              }, {
+                rootMargin: '200px 0px',
+                threshold: 0.01
+              });
+
+              categoryGroups.forEach(group => observer.observe(group));
+            } else {
+              categoryGroups.forEach(loadCategoryArticles);
+            }
+          }
+
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCategoryLoading);
+          } else {
+            initCategoryLoading();
+          }
+        })();
+      </script>
     {% else %}
       <div class="main-blog-recipekit-grid">
         {%- for article in blog.articles -%}
