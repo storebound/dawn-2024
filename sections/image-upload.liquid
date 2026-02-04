@@ -373,12 +373,29 @@
     elements.messageArea.hidden = true;
   }
 
+  // Check if file is HEIC based on extension (browsers often don't detect HEIC MIME type)
+  function isHeicFile(file) {
+    const ext = file.name.split('.').pop().toLowerCase();
+    return ext === 'heic' || ext === 'heif' || file.type === 'image/heic' || file.type === 'image/heif';
+  }
+
   // Validate file type
   function validateFileType(file) {
-    if (!CONFIG.allowedTypes.includes(file.type)) {
-      return 'Invalid file type. Please upload a JPEG, PNG, GIF, or HEIC image.';
+    // Check MIME type first
+    if (CONFIG.allowedTypes.includes(file.type)) {
+      return null;
     }
-    return null;
+    // Fallback: check file extension for HEIC (browsers often report empty/wrong MIME type)
+    if (isHeicFile(file)) {
+      return null;
+    }
+    // Also check common image extensions as fallback
+    const ext = file.name.split('.').pop().toLowerCase();
+    const allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'heic', 'heif'];
+    if (allowedExtensions.includes(ext)) {
+      return null;
+    }
+    return 'Invalid file type. Please upload a JPEG, PNG, GIF, or HEIC image.';
   }
 
   // Validate file size
@@ -421,7 +438,20 @@
       return;
     }
 
-    // Create preview and validate dimensions
+    // HEIC files can't be previewed in most desktop browsers - skip image validation
+    if (isHeicFile(file)) {
+      selectedFile = file;
+      // Show placeholder for HEIC since browsers can't display it
+      elements.previewImage.src = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="200" height="150" viewBox="0 0 200 150"><rect fill="#f3f4f6" width="200" height="150"/><text x="100" y="70" text-anchor="middle" fill="#6b7280" font-family="system-ui" font-size="14">HEIC Image</text><text x="100" y="90" text-anchor="middle" fill="#9ca3af" font-family="system-ui" font-size="12">(Preview not available)</text></svg>');
+      elements.fileName.textContent = file.name;
+      elements.fileSize.textContent = formatFileSize(file.size);
+      elements.uploadArea.hidden = true;
+      elements.previewArea.hidden = false;
+      elements.uploadBtn.disabled = false;
+      return;
+    }
+
+    // Create preview and validate dimensions for other image types
     const reader = new FileReader();
     reader.onload = function(e) {
       const img = new Image();
@@ -435,6 +465,16 @@
         // File is valid
         selectedFile = file;
         elements.previewImage.src = e.target.result;
+        elements.fileName.textContent = file.name;
+        elements.fileSize.textContent = formatFileSize(file.size);
+        elements.uploadArea.hidden = true;
+        elements.previewArea.hidden = false;
+        elements.uploadBtn.disabled = false;
+      };
+      img.onerror = function() {
+        // Image failed to load - might be unsupported format, allow upload anyway
+        selectedFile = file;
+        elements.previewImage.src = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="200" height="150" viewBox="0 0 200 150"><rect fill="#f3f4f6" width="200" height="150"/><text x="100" y="75" text-anchor="middle" fill="#6b7280" font-family="system-ui" font-size="14">Preview not available</text></svg>');
         elements.fileName.textContent = file.name;
         elements.fileSize.textContent = formatFileSize(file.size);
         elements.uploadArea.hidden = true;
