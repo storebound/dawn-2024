@@ -348,6 +348,15 @@ document.querySelectorAll('span[role="tab"]').forEach(el => {
         This bypasses the 50-iteration limit entirely.
       {%- endcomment -%}
 
+      {%- comment -%} Prefetch hints for first 3 categories to start loading early {%- endcomment -%}
+      {%- assign prefetch_count = 0 -%}
+      {%- for block in section.blocks -%}
+        {%- if block.settings.tag != blank and prefetch_count < 3 -%}
+          <link rel="prefetch" href="{{ routes.root_url }}blogs/{{ blog.handle }}/tagged/{{ block.settings.tag | handle }}?section_id=category-articles" as="document">
+          {%- assign prefetch_count = prefetch_count | plus: 1 -%}
+        {%- endif -%}
+      {%- endfor -%}
+
       <div class="grouped-by-category" id="category-groups-container">
         {% assign recipe_tag_group = shop.metaobjects.recipe_tag_group.values %}
         {% for block in section.blocks %}
@@ -512,9 +521,15 @@ document.querySelectorAll('span[role="tab"]').forEach(el => {
           }
 
           function initCategoryLoading() {
-            const categoryGroups = document.querySelectorAll('.main-blog-category-group[data-category-tag]');
+            const categoryGroups = Array.from(document.querySelectorAll('.main-blog-category-group[data-category-tag]'));
+            const IMMEDIATE_LOAD_COUNT = 3;
 
-            if ('IntersectionObserver' in window) {
+            const immediateGroups = categoryGroups.slice(0, IMMEDIATE_LOAD_COUNT);
+            const lazyGroups = categoryGroups.slice(IMMEDIATE_LOAD_COUNT);
+
+            immediateGroups.forEach(loadCategoryArticles);
+
+            if (lazyGroups.length > 0 && 'IntersectionObserver' in window) {
               const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                   if (entry.isIntersecting) {
@@ -523,13 +538,13 @@ document.querySelectorAll('span[role="tab"]').forEach(el => {
                   }
                 });
               }, {
-                rootMargin: '200px 0px',
+                rootMargin: '300px 0px',
                 threshold: 0.01
               });
 
-              categoryGroups.forEach(group => observer.observe(group));
+              lazyGroups.forEach(group => observer.observe(group));
             } else {
-              categoryGroups.forEach(loadCategoryArticles);
+              lazyGroups.forEach(loadCategoryArticles);
             }
           }
 
