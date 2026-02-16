@@ -316,7 +316,7 @@
   // ============================================
   const CONFIG = {
     // Premier NX API endpoint - UPDATE THIS when provided
-    apiEndpoint: 'https://api.premiernx.com/upload-file',
+    apiEndpoint: 'https://y2tp4wlqlb.execute-api.us-west-2.amazonaws.com/upload-file',
 
     // Validation settings (from spec)
     maxFileSize: 10 * 1024 * 1024, // 10MB
@@ -514,15 +514,15 @@
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          file_name: selectedFile.name,
-          file_type: selectedFile.type,
+          fileName: selectedFile.name,
+          fileType: selectedFile.type,
           token: uploadToken
         })
       });
 
       if (!presignResponse.ok) {
         const errorData = await presignResponse.json().catch(() => ({}));
-        throw new Error(errorData.message || 'Failed to get upload URL. Your link may have expired. If this issue persists, please email your image to support@bydash.com');
+        throw new Error(errorData.Error || errorData.error || 'Failed to get upload URL. Your link may have expired. If this issue persists, please email your image to support@bydash.com');
       }
 
       const presignData = await presignResponse.json();
