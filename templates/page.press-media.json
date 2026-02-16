@@ -52,7 +52,7 @@
             "button_link": "https://www.dropbox.com/scl/fo/c0xhwxz1hmkm8776ffv0k/AJ-xK_ckFcHKWroNS7kSOLw?rlkey=1h9zvpd9l99mmkbrvgqxnkndw&dl=0",
             "button_style_secondary": false,
             "button_label_2": "HIGH RES ASSETS",
-            "button_link_2": "https://www.dropbox.com/scl/fo/9xctd0d28l5vjseaeipkc/ADM7H8gSTfWOI3Z1NAZCyus?rlkey=xpb7tq1lmdlk0nbbu0ucs46wx&dl=0",
+            "button_link_2": "https://www.dropbox.com/scl/fo/4cnfojkkaym7wjqa8522y/AD-9MM9CJ_QAXJN-cVkvW7A?rlkey=1la65z9rnnj5qznbwc7fn1f4u&st=ki2sz8ze&dl=0",
             "button_style_secondary_2": false
           }
         },
@@ -260,11 +260,11 @@
         "heading_size": "h2",
         "image_width": "full",
         "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
         "columns_desktop": 4,
         "column_alignment": "center",
         "background_style": "primary",
-        "button_label": "",
-        "button_link": "",
         "color_scheme": "",
         "columns_mobile": "1",
         "swipe_on_mobile": true,
@@ -275,16 +275,16 @@
     "featured_blog_rhrhHi": {
       "type": "featured-blog",
       "settings": {
-        "heading": "PRESS RELEASES",
-        "heading_size": "h2",
         "blog": "press-releases",
         "post_limit": 4,
+        "heading": "PRESS RELEASES",
+        "heading_size": "h2",
         "columns_desktop": 4,
-        "color_scheme": "",
+        "show_view_all": true,
         "show_image": false,
         "show_date": true,
         "show_author": false,
-        "show_view_all": true,
+        "color_scheme": "",
         "padding_top": 36,
         "padding_bottom": 36
       }
