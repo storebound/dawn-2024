@@ -94,21 +94,6 @@
       chatBtn.classList.add('active');
       msgBtn.classList.remove('active');
       formContainer.classList.remove('is-visible');
-
-      /* Open the ZVA chatbot which lives inside a shadow DOM.
-         Step 1: Click the invitation launcher to activate the container.
-         Step 2: Toggle the window class from --closed to --open. */
-      document.querySelectorAll('div').forEach(function(el) {
-        if (el.shadowRoot) {
-          var invitation = el.shadowRoot.querySelector('.livesdk__invitation');
-          if (invitation) invitation.click();
-          var chatWindow = el.shadowRoot.querySelector('.livesdk__chat-sdk-window');
-          if (chatWindow) {
-            chatWindow.classList.remove('livesdk__chat-sdk-window--closed');
-            chatWindow.classList.add('livesdk__chat-sdk-window--open');
-          }
-        }
-      });
     }
 
     function showForm() {
