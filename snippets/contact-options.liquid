@@ -95,35 +95,21 @@
       msgBtn.classList.remove('active');
       formContainer.classList.remove('is-visible');
 
-      // Find the ZVA shadow host and click the Help button to open chat
-      var shadowHosts = document.querySelectorAll('[id^="livesdk"]');
-      var opened = false;
-      shadowHosts.forEach(function(host) {
-        if (host.shadowRoot) {
-          var invitation = host.shadowRoot.querySelector('.livesdk__invitation');
-          if (invitation) {
-            invitation.click();
-            opened = true;
-          }
-        }
-      });
-
-      // If no shadow host found yet, try a brief retry (widget may still be loading)
-      if (!opened) {
+      // Click the ZVA Help button to open the chatbot
+      var invitation = document.querySelector('#livesdk__campaign .livesdk__invitation');
+      if (invitation) {
+        invitation.click();
+      } else {
+        // Retry briefly if ZVA widget hasn't loaded yet
         var attempts = 0;
         var retryInterval = setInterval(function() {
           attempts++;
-          var hosts = document.querySelectorAll('[id^="livesdk"]');
-          hosts.forEach(function(host) {
-            if (host.shadowRoot) {
-              var inv = host.shadowRoot.querySelector('.livesdk__invitation');
-              if (inv) {
-                inv.click();
-                opened = true;
-              }
-            }
-          });
-          if (opened || attempts >= 10) clearInterval(retryInterval);
+          var inv = document.querySelector('#livesdk__campaign .livesdk__invitation');
+          if (inv) {
+            inv.click();
+            clearInterval(retryInterval);
+          }
+          if (attempts >= 10) clearInterval(retryInterval);
         }, 500);
       }
     }
