@@ -1,4 +1,4 @@
 {%- comment -%} Zoom Virtual Agent chatbot - only on specific pages {%- endcomment -%}
-{%- if request.path == '/pages/contact-us' or request.path contains '/collections/support' -%}
+{%- if request.path == '/pages/faqs' or request.path == '/collections/parts-accessories' or request.path == '/pages/warranty' or request.path == '/pages/delivery-returns' or request.path == '/pages/rewards' or request.path == '/pages/contact-us' or request.path == '/collections/support' or request.path contains '/policies/' -%}
   <script type="module" src="https://us01ccistatic.zoom.us/us01cci/web-sdk/chat-client.js" data-apikey="4NNTk7NfT_KtFakO5obwIQ" data-env="us01"></script>
 {%- endif -%}
