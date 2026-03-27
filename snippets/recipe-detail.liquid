@@ -1136,24 +1136,26 @@
       </div>
 
       <!-- Recipe Description: Full-width section between top and bottom quadrants -->
-      <div class="recipe-description-fullwidth">
-        <div class="recipe-description">
-            {{
-              rk_mf.recipe_description
-              | replace_first: '<p> </p>', ''
-              | replace_first: '<p></p>', ''
-              | replace_first: '<p>     </p>', ''
-              | replace_first: '<p>
+      {%- if rk_mf.recipe_description != blank -%}
+        <div class="recipe-description-fullwidth">
+          <div class="recipe-description">
+              {{
+                rk_mf.recipe_description
+                | replace_first: '<p> </p>', ''
+                | replace_first: '<p></p>', ''
+                | replace_first: '<p>     </p>', ''
+                | replace_first: '<p>
 </p>', ''
-              | replace_first: '<p>
+                | replace_first: '<p>
 
 
 
 
 </p>', ''
-            }}
+              }}
+          </div>
         </div>
-      </div>
+      {%- endif -%}
 
       <!-- New Wrapper for Column 1 Lower Content -->
       <div class="recipe-column-one-lower">
