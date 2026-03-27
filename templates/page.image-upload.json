@@ -13,10 +13,7 @@
       "type": "image-upload",
       "settings": {
         "heading": "Upload Image",
-        "show_reference_image": true,
-        "reference_label": "Please take a photo similar to this example:",
-        "reference_image_url": "https://cdn.shopify.com/s/files/1/0173/8181/8422/files/97756000.jpg",
-        "reference_caption": "Take a clear photo of the product label showing the model number",
+        "show_reference_image": false,
         "color_scheme": "scheme-1",
         "padding_top": 60,
         "padding_bottom": 60
