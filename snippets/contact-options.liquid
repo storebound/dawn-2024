@@ -90,27 +90,37 @@
     var formContainer = document.getElementById('contact-form-embed');
     var formLoaded = false;
 
+    function isChatOpen() {
+      var children = document.body.children;
+      for (var i = 0; i < children.length; i++) {
+        if (children[i].shadowRoot) {
+          var container = children[i].shadowRoot.querySelector('.livesdk__chat-sdk-window__container');
+          if (container) return getComputedStyle(container).display !== 'none';
+        }
+      }
+      return false;
+    }
+
+    function clickInvitation() {
+      var inv = document.querySelector('#livesdk__campaign .livesdk__invitation');
+      if (inv) { inv.click(); return true; }
+      return false;
+    }
+
     function openChat() {
       chatBtn.classList.add('active');
       msgBtn.classList.remove('active');
       formContainer.classList.remove('is-visible');
 
-      // Click the ZVA Help button to open the chatbot
-      var invitation = document.querySelector('#livesdk__campaign .livesdk__invitation');
-      if (invitation) {
-        invitation.click();
-      } else {
-        // Retry briefly if ZVA widget hasn't loaded yet
-        var attempts = 0;
-        var retryInterval = setInterval(function() {
-          attempts++;
-          var inv = document.querySelector('#livesdk__campaign .livesdk__invitation');
-          if (inv) {
-            inv.click();
-            clearInterval(retryInterval);
-          }
-          if (attempts >= 10) clearInterval(retryInterval);
-        }, 500);
+      // Only open if not already open
+      if (!isChatOpen()) {
+        if (!clickInvitation()) {
+          var attempts = 0;
+          var retryInterval = setInterval(function() {
+            attempts++;
+            if (clickInvitation() || attempts >= 10) clearInterval(retryInterval);
+          }, 500);
+        }
       }
     }
 
@@ -118,6 +128,9 @@
       msgBtn.classList.add('active');
       chatBtn.classList.remove('active');
       formContainer.classList.add('is-visible');
+
+      // Close chat if it's open
+      if (isChatOpen()) clickInvitation();
 
       if (!formLoaded) {
         var script = document.createElement('script');
