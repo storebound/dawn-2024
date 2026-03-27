@@ -423,31 +423,33 @@
   }
 
   .recipe-product-block {
-    border-radius: 8px;
-    padding: 0;
+    border-radius: 10px;
+    padding: 16px;
     margin-top: 20px;
     display: grid;
-    grid-template-columns: 180px 1fr;
-    gap: 0;
+    grid-template-columns: 120px 1fr;
+    gap: 16px;
     align-items: center;
     overflow: hidden;
-    border: 4px solid #f8f8f8;
+    border: 1px solid #e0e0e0;
     order: 3;
     color: #333;
     height: auto;
+    background-color: #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
   }
 
   .product-image-container {
-    width: 180px;
-    height: 110px;
+    width: 120px;
+    height: 120px;
     overflow: hidden;
-    background-color: white;
-    padding: 0;
+    background-color: #f9f9f9;
+    padding: 8px;
     box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 0 0 0 4px;
+    border-radius: 8px;
   }
 
   .product-image {
@@ -460,18 +462,17 @@
   .product-details {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    min-height: 110px;
-    align-items: center;
-    background-color: #f8f8f8;
-    padding: 12px 0;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: transparent;
+    padding: 0;
     box-sizing: border-box;
   }
 
   .product-title {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
     line-height: 1.3;
     color: #333;
     overflow: hidden;
@@ -479,21 +480,21 @@
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     text-transform: uppercase;
-    text-align: center;
+    text-align: left;
   }
 
   .product-price {
     font-size: 16px;
     font-weight: 700;
     color: inherit;
-    margin-right: 10px;
+    margin-right: 12px;
   }
 
   .product-cta {
     display: inline-block;
     background-color: rgb(211, 236, 232);
     color: #333;
-    padding: 6px 15px;
+    padding: 8px 18px;
     border-radius: 20px;
     font-weight: bold;
     font-size: 12px;
@@ -511,7 +512,6 @@
 
   .product-price-cta-wrapper {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     margin-top: 4px;
   }
@@ -739,9 +739,8 @@
     .recipe-product-block {
       grid-row: 4;
       grid-column: 1;
-      grid-template-columns: 180px 1fr;
+      grid-template-columns: 120px 1fr;
       max-height: none;
-      gap: 0;
     }
 
     .recipe-column-one-lower {
@@ -950,24 +949,22 @@
   /* Mobile-specific adjustments */
   @media screen and (max-width: 768px) {
     .recipe-product-block {
-      padding-top: 0;
-      grid-template-columns: 1fr 2fr; /* Image column 1/3, text column 2/3 */
-      /* You might want to adjust the gap for mobile if the default is too large */
-      /* gap: 10px; */
+      grid-template-columns: 100px 1fr;
+      padding: 12px;
+      gap: 12px;
     }
 
     .recipe-product-block .product-image-container {
-      width: 100%; /* Container takes full width of its new smaller grid cell */
-      height: auto; /* Adjust height automatically */
-      padding: 0; /* Reset padding if necessary */
+      width: 100px;
+      height: 100px;
+      padding: 6px;
     }
 
     .recipe-product-block .product-image {
-      /* Targeting the image specifically */
-      width: 100%; /* Image fills its container */
-      max-width: 100%; /* Ensure it doesn't overflow if somehow larger than container */
-      height: auto; /* Maintain aspect ratio */
-      display: block; /* Consistent rendering, removes bottom space if inline */
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
     }
 
     .recipe-meta {
