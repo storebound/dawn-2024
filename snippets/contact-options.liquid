@@ -38,21 +38,21 @@
     <li class="multicolumn-list__item grid__item">
       <div class="multicolumn-card content-container">
         <div class="multicolumn-card__info center">
-          <svg class="contact-option-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <svg class="contact-option-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
           </svg>
           <h3 class="inline-richtext">CHAT NOW</h3>
           <div class="rte">
             <p>Get instant help from our virtual assistant</p>
           </div>
-          <button type="button" id="contact-opt-chat" class="button button--primary" aria-label="Chat Now">Chat Now</button>
+          <button type="button" id="contact-opt-chat" class="button button--primary" aria-pressed="false">Chat Now</button>
         </div>
       </div>
     </li>
     <li class="multicolumn-list__item grid__item">
       <div class="multicolumn-card content-container">
         <div class="multicolumn-card__info center">
-          <svg class="contact-option-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <svg class="contact-option-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
             <polyline points="22,6 12,13 2,6"></polyline>
           </svg>
@@ -60,13 +60,13 @@
           <div class="rte">
             <p>Fill out our form and we'll get back to you</p>
           </div>
-          <button type="button" id="contact-opt-message" class="button button--primary" aria-label="Send Us a Message">Send Us a Message</button>
+          <button type="button" id="contact-opt-message" class="button button--primary" aria-pressed="false">Send Us a Message</button>
         </div>
       </div>
     </li>
   </ul>
 
-  <div class="contact-form-embed" id="contact-form-embed"></div>
+  <div class="contact-form-embed" id="contact-form-embed" aria-live="polite"></div>
 </div>
 
 <script>
@@ -95,7 +95,9 @@
 
     function openChat() {
       chatBtn.classList.add('active');
+      chatBtn.setAttribute('aria-pressed', 'true');
       msgBtn.classList.remove('active');
+      msgBtn.setAttribute('aria-pressed', 'false');
       formContainer.classList.remove('is-visible');
 
       // Only open if not already open
@@ -112,7 +114,9 @@
 
     function showForm() {
       msgBtn.classList.add('active');
+      msgBtn.setAttribute('aria-pressed', 'true');
       chatBtn.classList.remove('active');
+      chatBtn.setAttribute('aria-pressed', 'false');
       formContainer.classList.add('is-visible');
 
       // Close chat if it's open
