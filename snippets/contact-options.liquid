@@ -13,6 +13,10 @@
     opacity: 0.7;
     pointer-events: none;
   }
+  .contact-options .multicolumn-card {
+    background: rgb(var(--color-background))
+      linear-gradient(rgba(var(--color-foreground), 0.04), rgba(var(--color-foreground), 0.04));
+  }
   .contact-options .contact-option-icon {
     width: 48px;
     height: 48px;
@@ -56,7 +60,7 @@
           <div class="rte">
             <p>Fill out our form and we'll get back to you</p>
           </div>
-          <button type="button" id="contact-opt-message" class="button button--secondary" aria-label="Send Us a Message">Send Us a Message</button>
+          <button type="button" id="contact-opt-message" class="button button--primary" aria-label="Send Us a Message">Send Us a Message</button>
         </div>
       </div>
     </li>
