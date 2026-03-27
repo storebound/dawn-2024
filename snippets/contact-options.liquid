@@ -1,0 +1,140 @@
+{%- comment -%} Contact page: Chat Now & Send a Message options {%- endcomment -%}
+
+<style>
+  .contact-options {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 0;
+  }
+  .contact-option-card {
+    flex: 1;
+    text-align: center;
+    padding: 3rem 2rem;
+    border: 2px solid rgba(var(--color-foreground), 0.15);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    background: rgb(var(--color-background));
+  }
+  .contact-option-card:hover,
+  .contact-option-card.active {
+    border-color: rgba(var(--color-foreground), 1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  }
+  .contact-option-card svg {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 1.5rem;
+  }
+  .contact-option-card__title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.75rem;
+  }
+  .contact-option-card__desc {
+    font-size: 0.875rem;
+    color: rgba(var(--color-foreground), 0.7);
+    line-height: 1.5;
+  }
+  .contact-form-embed {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 2rem 0;
+    display: none;
+  }
+  .contact-form-embed.is-visible {
+    display: block;
+  }
+  @media screen and (max-width: 749px) {
+    .contact-options {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .contact-option-card {
+      padding: 2rem 1.5rem;
+    }
+  }
+</style>
+
+<div class="page-width">
+  <div class="contact-options">
+    <div class="contact-option-card" id="contact-opt-chat" role="button" tabindex="0" aria-label="Chat Now">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+      </svg>
+      <div class="contact-option-card__title">Chat Now</div>
+      <div class="contact-option-card__desc">Get instant help from our virtual assistant</div>
+    </div>
+    <div class="contact-option-card" id="contact-opt-message" role="button" tabindex="0" aria-label="Send Us a Message">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+        <polyline points="22,6 12,13 2,6"></polyline>
+      </svg>
+      <div class="contact-option-card__title">Send Us a Message</div>
+      <div class="contact-option-card__desc">Fill out our form and we'll get back to you</div>
+    </div>
+  </div>
+
+  <div class="contact-form-embed" id="contact-form-embed"></div>
+</div>
+
+<script>
+  (function() {
+    var chatBtn = document.getElementById('contact-opt-chat');
+    var msgBtn = document.getElementById('contact-opt-message');
+    var formContainer = document.getElementById('contact-form-embed');
+    var formLoaded = false;
+
+    function openChat() {
+      chatBtn.classList.add('active');
+      msgBtn.classList.remove('active');
+      formContainer.classList.remove('is-visible');
+
+      /* Open the ZVA chatbot which lives inside a shadow DOM.
+         Step 1: Click the invitation launcher to activate the container.
+         Step 2: Toggle the window class from --closed to --open. */
+      document.querySelectorAll('div').forEach(function(el) {
+        if (el.shadowRoot) {
+          var invitation = el.shadowRoot.querySelector('.livesdk__invitation');
+          if (invitation) invitation.click();
+          var chatWindow = el.shadowRoot.querySelector('.livesdk__chat-sdk-window');
+          if (chatWindow) {
+            chatWindow.classList.remove('livesdk__chat-sdk-window--closed');
+            chatWindow.classList.add('livesdk__chat-sdk-window--open');
+          }
+        }
+      });
+    }
+
+    function showForm() {
+      msgBtn.classList.add('active');
+      chatBtn.classList.remove('active');
+      formContainer.classList.add('is-visible');
+
+      if (!formLoaded) {
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = 'https://form.123formbuilder.com/embed/5948756.js';
+        script.setAttribute('data-role', 'form');
+        script.setAttribute('data-default-width', '650px');
+        formContainer.appendChild(script);
+        formLoaded = true;
+      }
+    }
+
+    chatBtn.addEventListener('click', openChat);
+    msgBtn.addEventListener('click', showForm);
+
+    chatBtn.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openChat(); }
+    });
+    msgBtn.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showForm(); }
+    });
+  })();
+</script>
