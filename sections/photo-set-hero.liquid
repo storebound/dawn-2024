@@ -87,8 +87,8 @@
     <div class="photo-set-hero__content-column">
       <div class="photo-set-hero__content">
         <div class="photo-set-hero__blob" aria-hidden="true">
-          <svg viewBox="0 0 760 560" preserveAspectRatio="none" focusable="false">
-            <path d="M66.6 122.4C99.8 52.1 176.2 11.7 253.9 11.7H620.7C683.3 11.7 733.8 62.5 733.8 124.7V436.8C733.8 502.1 680.9 555 615.7 555H245.6C167.8 555 95.7 515 59.3 449.4L16.4 372.1C-5.4 332.9 -5.4 285.3 16.5 246.1L66.6 122.4Z" fill="currentColor"></path>
+          <svg viewBox="0 0 1000 760" preserveAspectRatio="none" focusable="false">
+            <path d="M221.3 56.8C326.1 5.9 452.8 -10.6 565.7 8.7C666 25.9 774.7 -4.6 846.3 63.3C916.7 130.4 888.4 239 901.8 333.9C913.9 421.9 973.8 517.3 912.7 578.4C847.8 643.2 734.4 618.8 636.5 626.5C516 636 401.7 698.3 283.7 672.1C170.1 646.8 76 568.9 27.8 473.6C-18.4 380.6 -4.6 275.7 46.5 186.1C81.5 124.6 153.2 89.7 221.3 56.8Z" fill="currentColor"></path>
           </svg>
         </div>
 
@@ -205,20 +205,26 @@
     flex: 1 1 0;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
+    padding-right: clamp(0rem, 1.8vw, 2.4rem);
   }
 
   .photo-set-hero__content {
     position: relative;
     width: min(100%, var(--photo-set-hero-copy-max-width));
-    padding: clamp(3rem, 5vw, 5rem) clamp(2rem, 4vw, 4.5rem);
+    margin-right: clamp(0rem, 1vw, 1.2rem);
+    padding: clamp(3rem, 5vw, 5rem) clamp(2.4rem, 4vw, 4.8rem);
     text-align: center;
     color: var(--photo-set-hero-body);
   }
 
   .photo-set-hero__blob {
     position: absolute;
-    inset: -4% -5% -7% -6%;
+    top: 50%;
+    right: clamp(-18rem, -11vw, -5rem);
+    width: clamp(48rem, 58vw, 74rem);
+    aspect-ratio: 1.32;
+    transform: translateY(-50%);
     z-index: -1;
     color: var(--photo-set-hero-blob);
   }
@@ -268,7 +274,13 @@
 
     .photo-set-hero__content {
       width: min(100%, 42rem);
+      margin-right: 0;
       padding: 3.2rem 2.4rem;
+    }
+
+    .photo-set-hero__blob {
+      right: clamp(-15rem, -18vw, -6rem);
+      width: clamp(42rem, 72vw, 58rem);
     }
 
     .photo-set-hero__heading {
@@ -318,16 +330,23 @@
 
     .photo-set-hero__content-column {
       justify-content: flex-start;
+      padding-right: 0;
     }
 
     .photo-set-hero__content {
       width: 100%;
       max-width: none;
+      margin-right: 0;
       padding: 2.8rem 1.8rem 3rem;
     }
 
     .photo-set-hero__blob {
-      inset: -5% -3% -6%;
+      top: auto;
+      right: auto;
+      width: auto;
+      aspect-ratio: auto;
+      transform: none;
+      inset: -7% -5% -8%;
     }
 
     .photo-set-hero__heading {
