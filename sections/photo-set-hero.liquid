@@ -256,7 +256,11 @@
     isolation: isolate;
     width: min(100%, max(var(--photo-set-hero-copy-max-width), 52rem));
     margin-right: clamp(0rem, 1vw, 1.2rem);
-    padding: clamp(4.8rem, 6vw, 6.8rem) clamp(2.8rem, 4vw, 5rem) clamp(3.6rem, 4.8vw, 4.8rem);
+    padding:
+      clamp(5.6rem, 6.8vw, 7.8rem)
+      clamp(3rem, 4vw, 4.8rem)
+      clamp(3.8rem, 4.8vw, 5rem)
+      clamp(4rem, 5vw, 6rem);
     text-align: center;
     color: var(--photo-set-hero-body);
   }
@@ -326,7 +330,7 @@
   @media screen and (max-width: 1360px) and (min-width: 1100px) {
     .photo-set-hero__content {
       width: min(100%, max(var(--photo-set-hero-copy-max-width), 53rem));
-      padding: 5.2rem 3.2rem 4rem;
+      padding: 5.8rem 3.1rem 4.1rem 4.2rem;
     }
 
     .photo-set-hero__blob {
@@ -343,7 +347,7 @@
   @media screen and (max-width: 1199px) and (min-width: 750px) {
     .photo-set-hero__content {
       width: min(100%, max(var(--photo-set-hero-copy-max-width), 48rem));
-      padding: 4.2rem 2.8rem 3.8rem;
+      padding: 4.8rem 2.8rem 3.8rem 3.6rem;
     }
 
     .photo-set-hero__blob {
@@ -378,7 +382,7 @@
     .photo-set-hero__content {
       width: min(100%, 47rem);
       margin-right: 0;
-      padding: 4.6rem 2.8rem 3.4rem;
+      padding: 5rem 2.6rem 3.5rem 3.8rem;
     }
 
     .photo-set-hero__blob {
@@ -445,7 +449,7 @@
       width: 100%;
       max-width: none;
       margin-right: 0;
-      padding: 3.2rem 1.8rem 3rem;
+      padding: 3.6rem 1.8rem 3rem 2.2rem;
     }
 
     .photo-set-hero__blob {
