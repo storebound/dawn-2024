@@ -87,9 +87,10 @@
     <div class="photo-set-hero__content-column">
       <div class="photo-set-hero__content">
         <div class="photo-set-hero__blob" aria-hidden="true">
-          <svg viewBox="0 0 1000 760" preserveAspectRatio="none" focusable="false">
-            <path d="M221.3 56.8C326.1 5.9 452.8 -10.6 565.7 8.7C666 25.9 774.7 -4.6 846.3 63.3C916.7 130.4 888.4 239 901.8 333.9C913.9 421.9 973.8 517.3 912.7 578.4C847.8 643.2 734.4 618.8 636.5 626.5C516 636 401.7 698.3 283.7 672.1C170.1 646.8 76 568.9 27.8 473.6C-18.4 380.6 -4.6 275.7 46.5 186.1C81.5 124.6 153.2 89.7 221.3 56.8Z" fill="currentColor"></path>
-          </svg>
+          <span class="photo-set-hero__blob-core"></span>
+          <span class="photo-set-hero__blob-lobe photo-set-hero__blob-lobe--top"></span>
+          <span class="photo-set-hero__blob-lobe photo-set-hero__blob-lobe--middle"></span>
+          <span class="photo-set-hero__blob-lobe photo-set-hero__blob-lobe--bottom"></span>
         </div>
 
         {%- if section.settings.heading != blank -%}
@@ -212,47 +213,85 @@
 
   .photo-set-hero__content {
     position: relative;
-    width: min(100%, var(--photo-set-hero-copy-max-width));
+    isolation: isolate;
+    width: min(100%, max(var(--photo-set-hero-copy-max-width), 50rem));
     margin-right: clamp(0rem, 1vw, 1.2rem);
-    padding: clamp(3rem, 5vw, 5rem) clamp(2.4rem, 4vw, 4.8rem);
+    padding: clamp(3.2rem, 5vw, 5.2rem) clamp(2.8rem, 4vw, 5rem);
     text-align: center;
     color: var(--photo-set-hero-body);
   }
 
   .photo-set-hero__blob {
     position: absolute;
-    top: 50%;
-    right: clamp(-20rem, -16vw, -8rem);
-    width: max(calc(100% + 16rem), clamp(34rem, 48vw, 68rem));
-    aspect-ratio: 1.32;
-    transform: translateY(-50%);
+    inset: 0;
     z-index: -1;
+    pointer-events: none;
     color: var(--photo-set-hero-blob);
+    filter: drop-shadow(0 2.2rem 3.2rem rgba(122, 183, 177, 0.14));
   }
 
-  .photo-set-hero__blob svg {
+  .photo-set-hero__blob-core,
+  .photo-set-hero__blob-lobe {
+    position: absolute;
     display: block;
-    width: 100%;
-    height: 100%;
-    filter: drop-shadow(0 2.2rem 3.2rem rgba(122, 183, 177, 0.14));
+    background: currentColor;
+  }
+
+  .photo-set-hero__blob-core {
+    inset: -10% -8% -12% -10%;
+    border-radius: 38% 62% 46% 54% / 34% 38% 62% 66%;
+    transform: rotate(1.5deg);
+  }
+
+  .photo-set-hero__blob-lobe--top {
+    top: -18%;
+    right: -26%;
+    width: 62%;
+    height: 44%;
+    border-radius: 59% 41% 47% 53% / 58% 60% 40% 42%;
+    transform: rotate(8deg);
+  }
+
+  .photo-set-hero__blob-lobe--middle {
+    top: 20%;
+    right: -18%;
+    width: 34%;
+    height: 38%;
+    border-radius: 52% 48% 58% 42% / 38% 62% 38% 62%;
+    transform: rotate(-7deg);
+  }
+
+  .photo-set-hero__blob-lobe--bottom {
+    right: -10%;
+    bottom: -16%;
+    width: 56%;
+    height: 28%;
+    border-radius: 64% 36% 58% 42% / 48% 58% 42% 52%;
+    transform: rotate(-5deg);
   }
 
   .photo-set-hero__heading {
     margin: 0;
+    max-width: 9ch;
+    margin-inline: auto;
     color: var(--photo-set-hero-heading);
     font-family: var(--font-heading-family);
     font-style: var(--font-heading-style);
     font-weight: 700;
-    font-size: clamp(3.6rem, 5.2vw, 7rem);
+    font-size: clamp(3.4rem, 4.6vw, 6.2rem);
     line-height: 0.96;
     letter-spacing: -0.05em;
+    text-wrap: balance;
   }
 
   .photo-set-hero__subheading {
     margin-top: 2rem;
+    max-width: 18ch;
+    margin-inline: auto;
     color: var(--photo-set-hero-body);
     font-size: clamp(1.8rem, 2vw, 3.2rem);
     line-height: 1.2;
+    text-wrap: balance;
   }
 
   .photo-set-hero__subheading p {
@@ -264,9 +303,30 @@
   }
 
   @media screen and (max-width: 1199px) and (min-width: 750px) {
-    .photo-set-hero__blob {
-      right: clamp(-14rem, -10vw, -5rem);
-      width: max(calc(100% + 12rem), clamp(38rem, 56vw, 56rem));
+    .photo-set-hero__content {
+      width: min(100%, max(var(--photo-set-hero-copy-max-width), 46rem));
+    }
+
+    .photo-set-hero__blob-core {
+      inset: -9% -6% -11% -8%;
+    }
+
+    .photo-set-hero__blob-lobe--top {
+      right: -18%;
+      width: 48%;
+      height: 38%;
+    }
+
+    .photo-set-hero__blob-lobe--middle {
+      right: -10%;
+      width: 24%;
+      height: 32%;
+    }
+
+    .photo-set-hero__blob-lobe--bottom {
+      right: -4%;
+      width: 46%;
+      height: 24%;
     }
   }
 
@@ -281,14 +341,32 @@
     }
 
     .photo-set-hero__content {
-      width: min(100%, 42rem);
+      width: min(100%, 44rem);
       margin-right: 0;
       padding: 3.2rem 2.4rem;
     }
 
-    .photo-set-hero__blob {
-      right: clamp(-12rem, -10vw, -4rem);
-      width: max(calc(100% + 10rem), clamp(36rem, 66vw, 50rem));
+    .photo-set-hero__blob-core {
+      inset: -8% -5% -10% -6%;
+    }
+
+    .photo-set-hero__blob-lobe--top {
+      top: -14%;
+      right: -12%;
+      width: 38%;
+      height: 32%;
+    }
+
+    .photo-set-hero__blob-lobe--middle {
+      right: -4%;
+      width: 18%;
+      height: 28%;
+    }
+
+    .photo-set-hero__blob-lobe--bottom {
+      right: 0;
+      width: 40%;
+      height: 22%;
     }
 
     .photo-set-hero__heading {
@@ -349,12 +427,32 @@
     }
 
     .photo-set-hero__blob {
-      top: auto;
-      right: auto;
-      width: auto;
-      aspect-ratio: auto;
-      transform: none;
+      inset: 0;
+    }
+
+    .photo-set-hero__blob-core {
       inset: -7% -5% -8%;
+    }
+
+    .photo-set-hero__blob-lobe--top {
+      top: -10%;
+      right: -4%;
+      width: 30%;
+      height: 26%;
+    }
+
+    .photo-set-hero__blob-lobe--middle {
+      top: 24%;
+      right: 0;
+      width: 16%;
+      height: 22%;
+    }
+
+    .photo-set-hero__blob-lobe--bottom {
+      right: 2%;
+      bottom: -6%;
+      width: 30%;
+      height: 18%;
     }
 
     .photo-set-hero__heading {
