@@ -28,7 +28,10 @@
     assign full_section_label = section.settings.heading | strip_html | strip
   endif
   if full_section_label == blank
-    assign full_section_label = 'Photo set hero'
+    assign full_section_label = section.settings.subheading | strip_html | strip
+  endif
+  if full_section_label == blank
+    assign full_section_label = media_alt
   endif
 
   assign button_link = section.settings.button_link
@@ -62,7 +65,7 @@
 {% endstyle %}
 
 <section id="PhotoSetHero-{{ section.id }}" class="photo-set-hero{% if section_link != blank %} photo-set-hero--linked{% endif %}">
-  {%- if section_link != blank -%}
+  {%- if section_link != blank and full_section_label != blank -%}
     <a class="photo-set-hero__full-link full-width-link" href="{{ section_link }}">
       <span class="visually-hidden">{{ full_section_label | escape }}</span>
     </a>
@@ -527,7 +530,7 @@
       "type": "text",
       "id": "link_label",
       "label": "Section link label",
-      "info": "Used for screen readers. Falls back to the heading."
+      "info": "Used for screen readers. Falls back to the heading, then subheading, then image alt text."
     },
     {
       "type": "text",
