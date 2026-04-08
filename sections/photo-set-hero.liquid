@@ -22,6 +22,17 @@
     assign media_alt = section.settings.heading | strip_html
   endif
 
+  assign section_link = section.settings.section_link
+  assign full_section_label = section.settings.link_label | strip
+  if full_section_label == blank
+    assign full_section_label = section.settings.heading | strip_html | strip
+  endif
+  if full_section_label == blank
+    assign full_section_label = 'Photo set hero'
+  endif
+
+  assign button_link = section.settings.button_link
+
   capture desktop_sizes
     echo '(min-width: '
     echo section.settings.content_max_width
@@ -49,7 +60,13 @@
   }
 {% endstyle %}
 
-<section id="PhotoSetHero-{{ section.id }}" class="photo-set-hero">
+<section id="PhotoSetHero-{{ section.id }}" class="photo-set-hero{% if section_link != blank %} photo-set-hero--linked{% endif %}">
+  {%- if section_link != blank -%}
+    <a class="photo-set-hero__full-link full-width-link" href="{{ section_link }}">
+      <span class="visually-hidden">{{ full_section_label | escape }}</span>
+    </a>
+  {%- endif -%}
+
   <div class="photo-set-hero__inner">
     <div class="photo-set-hero__media-column">
       <div class="photo-set-hero__media-wrap">
@@ -103,6 +120,17 @@
             {{ section.settings.subheading }}
           </div>
         {%- endif -%}
+
+        {%- if section.settings.button_label != blank and button_link != blank -%}
+          <div class="photo-set-hero__button-wrapper">
+            <a
+              href="{{ button_link }}"
+              class="photo-set-hero__button button{% if section.settings.button_style_secondary %} button--secondary{% else %} button--primary{% endif %}"
+            >
+              {{ section.settings.button_label | escape }}
+            </a>
+          </div>
+        {%- endif -%}
       </div>
     </div>
   </div>
@@ -119,6 +147,19 @@
       radial-gradient(circle at 20% 14%, rgba(255, 255, 255, 0.48) 0, rgba(255, 255, 255, 0) 34%),
       radial-gradient(circle at 78% 18%, rgba(255, 255, 255, 0.24) 0, rgba(255, 255, 255, 0) 32%),
       linear-gradient(180deg, var(--photo-set-hero-bg-top) 0%, var(--photo-set-hero-bg-top) 60%, var(--photo-set-hero-bg-bottom) 100%);
+  }
+
+  .photo-set-hero--linked {
+    cursor: pointer;
+  }
+
+  .photo-set-hero__full-link {
+    z-index: 2;
+  }
+
+  .photo-set-hero__full-link:focus-visible {
+    outline: 0.3rem solid rgba(17, 17, 17, 0.72);
+    outline-offset: -0.3rem;
   }
 
   .photo-set-hero::before {
@@ -271,6 +312,17 @@
     margin-top: 0.8rem;
   }
 
+  .photo-set-hero__button-wrapper {
+    position: relative;
+    z-index: 3;
+    margin-top: 2.4rem;
+  }
+
+  .photo-set-hero__button {
+    position: relative;
+    z-index: 3;
+  }
+
   @media screen and (max-width: 1360px) and (min-width: 1100px) {
     .photo-set-hero__content {
       width: min(100%, max(var(--photo-set-hero-copy-max-width), 53rem));
@@ -342,6 +394,10 @@
     .photo-set-hero__subheading {
       font-size: clamp(1.7rem, 2.4vw, 2.4rem);
     }
+
+    .photo-set-hero__button-wrapper {
+      margin-top: 2rem;
+    }
   }
 
   @media screen and (max-width: 749px) {
@@ -405,6 +461,10 @@
     .photo-set-hero__subheading {
       font-size: clamp(1.8rem, 5.4vw, 2.4rem);
     }
+
+    .photo-set-hero__button-wrapper {
+      margin-top: 1.8rem;
+    }
   }
 {% endstylesheet %}
 
@@ -452,6 +512,38 @@
       "id": "subheading",
       "label": "Subheading",
       "default": "<p>Soft serve, slushies &amp; shaved ice, oh my!</p>"
+    },
+    {
+      "type": "header",
+      "content": "Links"
+    },
+    {
+      "type": "url",
+      "id": "section_link",
+      "label": "Section link"
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Section link label",
+      "info": "Used for screen readers. Falls back to the heading."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link",
+      "info": "Button only appears when both label and link are set."
+    },
+    {
+      "type": "checkbox",
+      "id": "button_style_secondary",
+      "label": "Use secondary button style",
+      "default": false
     },
     {
       "type": "header",
