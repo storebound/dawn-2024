@@ -53,10 +53,11 @@
     --photo-set-hero-content-gap: {{ section.settings.content_gap }}px;
     --photo-set-hero-bg-top: {{ section.settings.background_top }};
     --photo-set-hero-bg-bottom: {{ section.settings.background_bottom }};
-    --photo-set-hero-floor: {{ section.settings.floor_color }};
     --photo-set-hero-blob: {{ section.settings.blob_color }};
     --photo-set-hero-heading: {{ section.settings.heading_color }};
     --photo-set-hero-body: {{ section.settings.body_color }};
+    --photo-set-hero-transition-point: 67%;
+    --photo-set-hero-transition-width: 12%;
   }
 {% endstyle %}
 
@@ -146,7 +147,13 @@
     background:
       radial-gradient(circle at 20% 14%, rgba(255, 255, 255, 0.48) 0, rgba(255, 255, 255, 0) 34%),
       radial-gradient(circle at 78% 18%, rgba(255, 255, 255, 0.24) 0, rgba(255, 255, 255, 0) 32%),
-      linear-gradient(180deg, var(--photo-set-hero-bg-top) 0%, var(--photo-set-hero-bg-top) 60%, var(--photo-set-hero-bg-bottom) 100%);
+      linear-gradient(
+        180deg,
+        var(--photo-set-hero-bg-top) 0%,
+        var(--photo-set-hero-bg-top) calc(var(--photo-set-hero-transition-point) - var(--photo-set-hero-transition-width)),
+        var(--photo-set-hero-bg-bottom) calc(var(--photo-set-hero-transition-point) + var(--photo-set-hero-transition-width)),
+        var(--photo-set-hero-bg-bottom) 100%
+      );
   }
 
   .photo-set-hero--linked {
@@ -169,9 +176,9 @@
     background: linear-gradient(
       180deg,
       rgba(255, 255, 255, 0) 0,
-      rgba(255, 255, 255, 0) 60%,
-      rgba(255, 255, 255, 0.32) 60.4%,
-      rgba(255, 255, 255, 0) 61%,
+      rgba(255, 255, 255, 0) calc(var(--photo-set-hero-transition-point) - 4%),
+      rgba(255, 255, 255, 0.16) var(--photo-set-hero-transition-point),
+      rgba(255, 255, 255, 0) calc(var(--photo-set-hero-transition-point) + 4%),
       rgba(255, 255, 255, 0) 100%
     );
     pointer-events: none;
@@ -179,14 +186,7 @@
   }
 
   .photo-set-hero::after {
-    content: '';
-    position: absolute;
-    inset: 60% 0 0;
-    background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0, rgba(255, 255, 255, 0.02) 24%, rgba(255, 255, 255, 0) 100%),
-      linear-gradient(180deg, var(--photo-set-hero-floor) 0%, var(--photo-set-hero-floor) 100%);
-    pointer-events: none;
-    z-index: -2;
+    display: none;
   }
 
   .photo-set-hero__inner {
@@ -422,11 +422,9 @@
 
   @media screen and (max-width: 749px) {
     .photo-set-hero {
+      --photo-set-hero-transition-point: 42%;
+      --photo-set-hero-transition-width: 8%;
       min-height: 0;
-    }
-
-    .photo-set-hero::after {
-      inset: 72% 0 0;
     }
 
     .photo-set-hero__inner {
@@ -634,12 +632,6 @@
       "id": "background_bottom",
       "label": "Background bottom",
       "default": "#bcecea"
-    },
-    {
-      "type": "color",
-      "id": "floor_color",
-      "label": "Floor color",
-      "default": "#b9e7e3"
     },
     {
       "type": "color",
