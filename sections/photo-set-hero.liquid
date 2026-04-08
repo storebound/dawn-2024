@@ -254,20 +254,31 @@
   .photo-set-hero__content {
     position: relative;
     isolation: isolate;
-    width: min(100%, max(var(--photo-set-hero-copy-max-width), 52rem));
-    margin-right: clamp(0rem, 1vw, 1.2rem);
+    width: min(100%, max(var(--photo-set-hero-copy-max-width), 51rem));
+    margin-right: 0;
     padding:
-      clamp(5.6rem, 6.8vw, 7.8rem)
-      clamp(3rem, 4vw, 4.8rem)
-      clamp(3.8rem, 4.8vw, 5rem)
-      clamp(4rem, 5vw, 6rem);
+      clamp(5.6rem, 6.2vw, 7.2rem)
+      clamp(3.1rem, 3.8vw, 4.6rem)
+      clamp(4.2rem, 4.4vw, 5rem)
+      clamp(4rem, 4.8vw, 5.4rem);
+    --photo-set-hero-blob-width-extra: clamp(9rem, 12vw, 16rem);
+    --photo-set-hero-blob-height-extra: clamp(5.5rem, 7vw, 8rem);
+    --photo-set-hero-blob-shift-x: clamp(2rem, 2.8vw, 4rem);
+    --photo-set-hero-blob-shift-y: clamp(1.8rem, 2vw, 2.6rem);
     text-align: center;
     color: var(--photo-set-hero-body);
   }
 
   .photo-set-hero__blob {
     position: absolute;
-    inset: -20% -28% -16% -2%;
+    left: 50%;
+    top: 50%;
+    width: calc(100% + var(--photo-set-hero-blob-width-extra));
+    height: calc(100% + var(--photo-set-hero-blob-height-extra));
+    transform: translate(
+      calc(-50% + var(--photo-set-hero-blob-shift-x)),
+      calc(-50% - var(--photo-set-hero-blob-shift-y))
+    );
     z-index: -1;
     pointer-events: none;
     color: var(--photo-set-hero-blob);
@@ -327,55 +338,6 @@
     z-index: 3;
   }
 
-  @media screen and (min-width: 1361px) {
-    .photo-set-hero__content-column {
-      padding-right: 0;
-    }
-
-    .photo-set-hero__content {
-      width: min(100%, max(var(--photo-set-hero-copy-max-width), 54rem));
-      margin-right: 0;
-      padding: 5.8rem 4rem 5.2rem 4.4rem;
-    }
-
-    .photo-set-hero__blob {
-      inset: -18% -16% -8% -12%;
-    }
-  }
-
-  @media screen and (max-width: 1360px) and (min-width: 1100px) {
-    .photo-set-hero__content {
-      width: min(100%, max(var(--photo-set-hero-copy-max-width), 53rem));
-      padding: 5.8rem 3.1rem 4.1rem 4.2rem;
-    }
-
-    .photo-set-hero__blob {
-      inset: -22% -30% -18% 0;
-    }
-
-    .photo-set-hero__heading {
-      width: min(100%, 14.8ch);
-      max-width: 14.8ch;
-      font-size: clamp(2.6rem, 3vw, 4.3rem);
-    }
-  }
-
-  @media screen and (max-width: 1199px) and (min-width: 750px) {
-    .photo-set-hero__content {
-      width: min(100%, max(var(--photo-set-hero-copy-max-width), 48rem));
-      padding: 4.8rem 2.8rem 3.8rem 3.6rem;
-    }
-
-    .photo-set-hero__blob {
-      inset: -16% -22% -14% -1%;
-    }
-
-    .photo-set-hero__heading {
-      width: min(100%, 14ch);
-      max-width: 14ch;
-    }
-  }
-
   @media screen and (max-width: 989px) and (min-width: 750px) {
     .photo-set-hero {
       min-height: clamp(34rem, 50vw, var(--photo-set-hero-max-height));
@@ -396,19 +358,18 @@
     }
 
     .photo-set-hero__content {
-      width: min(100%, 47rem);
-      margin-right: 0;
-      padding: 5rem 2.6rem 3.5rem 3.8rem;
-    }
-
-    .photo-set-hero__blob {
-      inset: -20% -22% -14% 2%;
+      width: min(100%, max(var(--photo-set-hero-copy-max-width), 45rem));
+      padding: 4.8rem 2.6rem 4rem 3.6rem;
+      --photo-set-hero-blob-width-extra: 7rem;
+      --photo-set-hero-blob-height-extra: 6.5rem;
+      --photo-set-hero-blob-shift-x: 1.6rem;
+      --photo-set-hero-blob-shift-y: 1.6rem;
     }
 
     .photo-set-hero__heading {
-      width: min(100%, 14ch);
-      max-width: 14ch;
-      font-size: clamp(2.5rem, 3.3vw, 4rem);
+      width: min(100%, 14.2ch);
+      max-width: 14.2ch;
+      font-size: clamp(2.4rem, 3vw, 3.8rem);
     }
 
     .photo-set-hero__subheading {
@@ -462,18 +423,17 @@
     .photo-set-hero__content {
       width: 100%;
       max-width: none;
-      margin-right: 0;
-      padding: 3.6rem 1.8rem 3rem 2.2rem;
-    }
-
-    .photo-set-hero__blob {
-      inset: -7% -5% -8%;
+      padding: 3.6rem 1.8rem 3.2rem 2.2rem;
+      --photo-set-hero-blob-width-extra: 2.8rem;
+      --photo-set-hero-blob-height-extra: 3rem;
+      --photo-set-hero-blob-shift-x: 0rem;
+      --photo-set-hero-blob-shift-y: 0.8rem;
     }
 
     .photo-set-hero__heading {
-      width: min(100%, 12.4ch);
-      max-width: 12.4ch;
-      font-size: clamp(2.6rem, 8.4vw, 4rem);
+      width: min(100%, 12.8ch);
+      max-width: 12.8ch;
+      font-size: clamp(2.5rem, 8vw, 3.8rem);
     }
 
     .photo-set-hero__subheading {
