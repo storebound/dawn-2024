@@ -1,0 +1,489 @@
+{%- liquid
+  assign fetch_priority = 'auto'
+  if section.index == 1
+    assign fetch_priority = 'high'
+  endif
+
+  assign desktop_image = section.settings.image
+  if desktop_image == blank
+    assign desktop_image = section.settings.mobile_image
+  endif
+
+  assign mobile_image = section.settings.mobile_image
+  if mobile_image == blank
+    assign mobile_image = desktop_image
+  endif
+
+  assign media_alt = section.settings.media_alt | strip
+  if media_alt == blank and desktop_image != blank and desktop_image.alt != blank
+    assign media_alt = desktop_image.alt
+  endif
+  if media_alt == blank
+    assign media_alt = section.settings.heading | strip_html
+  endif
+
+  capture desktop_sizes
+    echo '(min-width: '
+    echo section.settings.content_max_width
+    echo 'px) '
+    echo section.settings.content_max_width | times: section.settings.media_width | divided_by: 100 | round
+    echo 'px, (min-width: 990px) '
+    echo section.settings.media_width
+    echo 'vw, 100vw'
+  endcapture
+-%}
+
+{% style %}
+  #PhotoSetHero-{{ section.id }} {
+    --photo-set-hero-max-width: {{ section.settings.content_max_width }}px;
+    --photo-set-hero-max-height: {{ section.settings.section_max_height }}px;
+    --photo-set-hero-media-width: {{ section.settings.media_width }}%;
+    --photo-set-hero-copy-max-width: {{ section.settings.copy_max_width }}px;
+    --photo-set-hero-content-gap: {{ section.settings.content_gap }}px;
+    --photo-set-hero-bg-top: {{ section.settings.background_top }};
+    --photo-set-hero-bg-bottom: {{ section.settings.background_bottom }};
+    --photo-set-hero-floor: {{ section.settings.floor_color }};
+    --photo-set-hero-blob: {{ section.settings.blob_color }};
+    --photo-set-hero-heading: {{ section.settings.heading_color }};
+    --photo-set-hero-body: {{ section.settings.body_color }};
+  }
+{% endstyle %}
+
+<section id="PhotoSetHero-{{ section.id }}" class="photo-set-hero">
+  <div class="photo-set-hero__inner">
+    <div class="photo-set-hero__media-column">
+      <div class="photo-set-hero__media-wrap">
+        {%- if desktop_image != blank -%}
+          <picture class="photo-set-hero__picture">
+            {%- if mobile_image != blank -%}
+              <source
+                media="(max-width: 749px)"
+                sizes="100vw"
+                srcset="
+                  {{ mobile_image | image_url: width: 400 }} 400w,
+                  {{ mobile_image | image_url: width: 640 }} 640w,
+                  {{ mobile_image | image_url: width: 900 }} 900w,
+                  {{ mobile_image | image_url: width: 1200 }} 1200w
+                "
+              >
+            {%- endif -%}
+            {{
+              desktop_image
+              | image_url: width: 2400
+              | image_tag:
+                class: 'photo-set-hero__image',
+                widths: '480, 720, 960, 1280, 1600, 2000, 2400',
+                sizes: desktop_sizes,
+                alt: media_alt,
+                fetchpriority: fetch_priority
+            }}
+          </picture>
+        {%- else -%}
+          {{ 'lifestyle-2' | placeholder_svg_tag: 'photo-set-hero__placeholder' }}
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="photo-set-hero__content-column">
+      <div class="photo-set-hero__content">
+        <div class="photo-set-hero__blob" aria-hidden="true">
+          <svg viewBox="0 0 760 560" preserveAspectRatio="none" focusable="false">
+            <path d="M66.6 122.4C99.8 52.1 176.2 11.7 253.9 11.7H620.7C683.3 11.7 733.8 62.5 733.8 124.7V436.8C733.8 502.1 680.9 555 615.7 555H245.6C167.8 555 95.7 515 59.3 449.4L16.4 372.1C-5.4 332.9 -5.4 285.3 16.5 246.1L66.6 122.4Z" fill="currentColor"></path>
+          </svg>
+        </div>
+
+        {%- if section.settings.heading != blank -%}
+          <h2 class="photo-set-hero__heading inline-richtext">
+            {{ section.settings.heading }}
+          </h2>
+        {%- endif -%}
+
+        {%- if section.settings.subheading != blank -%}
+          <div class="photo-set-hero__subheading rte">
+            {{ section.settings.subheading }}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .photo-set-hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    width: 100%;
+    min-height: clamp(36rem, 42vw, var(--photo-set-hero-max-height));
+    background:
+      radial-gradient(circle at 20% 14%, rgba(255, 255, 255, 0.48) 0, rgba(255, 255, 255, 0) 34%),
+      radial-gradient(circle at 78% 18%, rgba(255, 255, 255, 0.24) 0, rgba(255, 255, 255, 0) 32%),
+      linear-gradient(180deg, var(--photo-set-hero-bg-top) 0%, var(--photo-set-hero-bg-top) 60%, var(--photo-set-hero-bg-bottom) 100%);
+  }
+
+  .photo-set-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0) 0,
+      rgba(255, 255, 255, 0) 60%,
+      rgba(255, 255, 255, 0.32) 60.4%,
+      rgba(255, 255, 255, 0) 61%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .photo-set-hero::after {
+    content: '';
+    position: absolute;
+    inset: 60% 0 0;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0, rgba(255, 255, 255, 0.02) 24%, rgba(255, 255, 255, 0) 100%),
+      linear-gradient(180deg, var(--photo-set-hero-floor) 0%, var(--photo-set-hero-floor) 100%);
+    pointer-events: none;
+    z-index: -2;
+  }
+
+  .photo-set-hero__inner {
+    display: flex;
+    align-items: stretch;
+    gap: var(--photo-set-hero-content-gap);
+    width: min(100%, var(--photo-set-hero-max-width));
+    min-height: inherit;
+    margin: 0 auto;
+    padding: clamp(2rem, 3vw, 3.6rem) clamp(1.6rem, 3vw, 4rem) 0;
+    box-sizing: border-box;
+  }
+
+  .photo-set-hero__media-column,
+  .photo-set-hero__content-column {
+    min-width: 0;
+  }
+
+  .photo-set-hero__media-column {
+    flex: 0 1 var(--photo-set-hero-media-width);
+    max-width: var(--photo-set-hero-media-width);
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .photo-set-hero__media-wrap {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+  }
+
+  .photo-set-hero__picture {
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+    height: 100%;
+  }
+
+  .photo-set-hero__image,
+  .photo-set-hero__placeholder {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: calc(var(--photo-set-hero-max-height) - 4.8rem);
+    object-fit: contain;
+    object-position: left bottom;
+  }
+
+  .photo-set-hero__placeholder {
+    min-height: 26rem;
+    fill: rgba(255, 255, 255, 0.72);
+  }
+
+  .photo-set-hero__content-column {
+    flex: 1 1 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .photo-set-hero__content {
+    position: relative;
+    width: min(100%, var(--photo-set-hero-copy-max-width));
+    padding: clamp(3rem, 5vw, 5rem) clamp(2rem, 4vw, 4.5rem);
+    text-align: center;
+    color: var(--photo-set-hero-body);
+  }
+
+  .photo-set-hero__blob {
+    position: absolute;
+    inset: -4% -5% -7% -6%;
+    z-index: -1;
+    color: var(--photo-set-hero-blob);
+  }
+
+  .photo-set-hero__blob svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 2.2rem 3.2rem rgba(122, 183, 177, 0.14));
+  }
+
+  .photo-set-hero__heading {
+    margin: 0;
+    color: var(--photo-set-hero-heading);
+    font-family: var(--font-heading-family);
+    font-style: var(--font-heading-style);
+    font-weight: 700;
+    font-size: clamp(3.6rem, 5.2vw, 7rem);
+    line-height: 0.96;
+    letter-spacing: -0.05em;
+  }
+
+  .photo-set-hero__subheading {
+    margin-top: 2rem;
+    color: var(--photo-set-hero-body);
+    font-size: clamp(1.8rem, 2vw, 3.2rem);
+    line-height: 1.2;
+  }
+
+  .photo-set-hero__subheading p {
+    margin: 0;
+  }
+
+  .photo-set-hero__subheading p + p {
+    margin-top: 0.8rem;
+  }
+
+  @media screen and (max-width: 989px) {
+    .photo-set-hero {
+      min-height: clamp(34rem, 50vw, var(--photo-set-hero-max-height));
+    }
+
+    .photo-set-hero__inner {
+      gap: clamp(1.6rem, 2.8vw, 3.2rem);
+      padding-inline: clamp(1.6rem, 2.4vw, 3rem);
+    }
+
+    .photo-set-hero__content {
+      width: min(100%, 42rem);
+      padding: 3.2rem 2.4rem;
+    }
+
+    .photo-set-hero__heading {
+      font-size: clamp(3rem, 4.8vw, 5.2rem);
+    }
+
+    .photo-set-hero__subheading {
+      font-size: clamp(1.7rem, 2.4vw, 2.4rem);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .photo-set-hero {
+      min-height: 0;
+    }
+
+    .photo-set-hero::after {
+      inset: 72% 0 0;
+    }
+
+    .photo-set-hero__inner {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 1.6rem;
+      width: 100%;
+      padding: 2rem 1.6rem 2.6rem;
+    }
+
+    .photo-set-hero__media-column {
+      flex-basis: auto;
+      max-width: none;
+      justify-content: center;
+    }
+
+    .photo-set-hero__media-wrap,
+    .photo-set-hero__picture {
+      justify-content: center;
+    }
+
+    .photo-set-hero__image,
+    .photo-set-hero__placeholder {
+      width: min(100%, 36rem);
+      max-height: none;
+      object-position: center bottom;
+      margin: 0 auto;
+    }
+
+    .photo-set-hero__content-column {
+      justify-content: flex-start;
+    }
+
+    .photo-set-hero__content {
+      width: 100%;
+      max-width: none;
+      padding: 2.8rem 1.8rem 3rem;
+    }
+
+    .photo-set-hero__blob {
+      inset: -5% -3% -6%;
+    }
+
+    .photo-set-hero__heading {
+      font-size: clamp(3rem, 11vw, 4.8rem);
+    }
+
+    .photo-set-hero__subheading {
+      font-size: clamp(1.8rem, 5.4vw, 2.4rem);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Photo set hero",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Desktop image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile image"
+    },
+    {
+      "type": "text",
+      "id": "media_alt",
+      "label": "Image alt text",
+      "info": "Optional. Falls back to the uploaded image alt text."
+    },
+    {
+      "type": "header",
+      "content": "Copy"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Frozen treat freshness"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "<p>Soft serve, slushies &amp; shaved ice, oh my!</p>"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "label": "Content max width",
+      "min": 1100,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "default": 1440
+    },
+    {
+      "type": "range",
+      "id": "section_max_height",
+      "label": "Desktop max height",
+      "min": 380,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "default": 500
+    },
+    {
+      "type": "range",
+      "id": "media_width",
+      "label": "Desktop media width",
+      "min": 50,
+      "max": 70,
+      "step": 1,
+      "unit": "%",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "copy_max_width",
+      "label": "Copy max width",
+      "min": 340,
+      "max": 560,
+      "step": 10,
+      "unit": "px",
+      "default": 470
+    },
+    {
+      "type": "range",
+      "id": "content_gap",
+      "label": "Column gap",
+      "min": 16,
+      "max": 96,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_top",
+      "label": "Background top",
+      "default": "#c8f0eb"
+    },
+    {
+      "type": "color",
+      "id": "background_bottom",
+      "label": "Background bottom",
+      "default": "#bcecea"
+    },
+    {
+      "type": "color",
+      "id": "floor_color",
+      "label": "Floor color",
+      "default": "#b9e7e3"
+    },
+    {
+      "type": "color",
+      "id": "blob_color",
+      "label": "Blob color",
+      "default": "#eaf4f3"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#f60231"
+    },
+    {
+      "type": "color",
+      "id": "body_color",
+      "label": "Body color",
+      "default": "#111111"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Photo set hero"
+    }
+  ]
+}
+{% endschema %}
