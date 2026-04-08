@@ -237,16 +237,20 @@
 
   .photo-set-hero__heading {
     margin: 0;
-    max-width: 9ch;
+    width: min(100%, 12.5ch);
+    max-width: 12.5ch;
     margin-inline: auto;
     color: var(--photo-set-hero-heading);
     font-family: var(--font-heading-family);
     font-style: var(--font-heading-style);
     font-weight: 700;
-    font-size: clamp(3.4rem, 4.6vw, 6.2rem);
-    line-height: 0.96;
-    letter-spacing: -0.05em;
-    text-wrap: balance;
+    font-size: clamp(2.8rem, 3.8vw, 5rem);
+    line-height: 0.94;
+    letter-spacing: -0.04em;
+    word-break: normal;
+    overflow-wrap: normal;
+    hyphens: none;
+    text-wrap: pretty;
   }
 
   .photo-set-hero__subheading {
@@ -298,7 +302,7 @@
     }
 
     .photo-set-hero__heading {
-      font-size: clamp(3rem, 4.8vw, 5.2rem);
+      font-size: clamp(2.7rem, 4vw, 4.6rem);
     }
 
     .photo-set-hero__subheading {
@@ -359,7 +363,9 @@
     }
 
     .photo-set-hero__heading {
-      font-size: clamp(3rem, 11vw, 4.8rem);
+      width: min(100%, 11.5ch);
+      max-width: 11.5ch;
+      font-size: clamp(2.6rem, 8.4vw, 4rem);
     }
 
     .photo-set-hero__subheading {
