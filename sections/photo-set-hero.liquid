@@ -222,8 +222,8 @@
   .photo-set-hero__blob {
     position: absolute;
     top: 50%;
-    right: clamp(-24rem, -20vw, -10rem);
-    width: clamp(34rem, 48vw, 68rem);
+    right: clamp(-20rem, -16vw, -8rem);
+    width: max(calc(100% + 16rem), clamp(34rem, 48vw, 68rem));
     aspect-ratio: 1.32;
     transform: translateY(-50%);
     z-index: -1;
@@ -263,6 +263,13 @@
     margin-top: 0.8rem;
   }
 
+  @media screen and (max-width: 1199px) and (min-width: 750px) {
+    .photo-set-hero__blob {
+      right: clamp(-14rem, -10vw, -5rem);
+      width: max(calc(100% + 12rem), clamp(38rem, 56vw, 56rem));
+    }
+  }
+
   @media screen and (max-width: 989px) {
     .photo-set-hero {
       min-height: clamp(34rem, 50vw, var(--photo-set-hero-max-height));
@@ -280,8 +287,8 @@
     }
 
     .photo-set-hero__blob {
-      right: clamp(-18rem, -24vw, -9rem);
-      width: clamp(34rem, 70vw, 52rem);
+      right: clamp(-12rem, -10vw, -4rem);
+      width: max(calc(100% + 10rem), clamp(36rem, 66vw, 50rem));
     }
 
     .photo-set-hero__heading {
