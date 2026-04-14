@@ -315,6 +315,12 @@
         {% endif %}
         {% endfor %}
         {% for tag in product.tags %}
+        {% if tag contains 'CBEP' %}
+          <div>&nbsp;</div>
+          <div><strong>California Battery Chemistry Information</strong><br>This product contains an embedded battery with the following chemistry: Lithium-ion.</div>
+        {% endif %}
+        {% endfor %}
+        {% for tag in product.tags %}
         {% if tag contains 'ptfe' %}
           <div>&nbsp;</div>    
           <div>This product contains PTFE for its non-stick properties. For more information about chemicals in this product, visit <a href="https://bydash.com/nonstick" target="_blank">bydash.com/nonstick</a> </div>
