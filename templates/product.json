@@ -66,6 +66,15 @@
           "type": "description",
           "settings": {}
         },
+        "collapsible_tab_XJY6Wi": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Specifications",
+            "icon": "check_mark",
+            "content": "",
+            "page": ""
+          }
+        },
         "sku_RjFYqf": {
           "type": "sku",
           "settings": {
@@ -89,6 +98,7 @@
         "buy_buttons",
         "complementary_xL646P",
         "description",
+        "collapsible_tab_XJY6Wi",
         "sku_RjFYqf",
         "share"
       ],
