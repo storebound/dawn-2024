@@ -16,10 +16,9 @@
       "blocks": {
         "announcement_XiUDac": {
           "type": "announcement",
-          "disabled": true,
           "settings": {
-            "text": "20% OFF SELECT PRODUCTS - USE CODE SAVE20!",
-            "link": "shopify://collections/new-year-new-view"
+            "text": "20% OFF SELECT PRODUCTS - USE CODE SUMMER",
+            "link": "shopify://collections/summer-favorites"
           }
         },
         "announcement-bar-0": {
