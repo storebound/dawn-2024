@@ -16,6 +16,7 @@
       "blocks": {
         "announcement_XiUDac": {
           "type": "announcement",
+          "disabled": true,
           "settings": {
             "text": "20% OFF SELECT PRODUCTS - USE CODE SUMMER",
             "link": "shopify://collections/summer-favorites"
