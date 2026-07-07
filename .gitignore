@@ -9,3 +9,9 @@ ehthumbs.db
 Thumbs.db
 .shopify
 
+
+# Local WKWebView debugging tool (not part of the theme)
+wkwebview-tester/
+
+# Local StarApps/VIA code snapshots (third-party app code, for review/diffing)
+starapps-snapshot/
