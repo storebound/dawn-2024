@@ -215,6 +215,32 @@ product-info {
   letter-spacing: 0.1rem;
 }
 
+/*
+  Easify Product Options ("tpo") disables the native "Buy with Shop" /
+  accelerated checkout button via `pointer-events: none` on every product it's
+  active on — including products that have no option set — which leaves the
+  button unclickable. Re-enable it only where there is NO Easify option set;
+  products that DO have options keep it disabled, because Shop Pay's express
+  checkout can't carry custom option line-item properties. Detection mirrors
+  Easify's own `.tpo_has-option-set` marker. `pointer-events` is inherited, so
+  restoring it on the accelerated-checkout element also restores the nested
+  wallet button and the "More payment options" link.
+*/
+.product__info-wrapper:not(:has(.tpo_has-option-set)) .shopify-payment-button shopify-accelerated-checkout {
+  pointer-events: auto !important;
+}
+
+/*
+  On Easify-active products (an option set is present), Shop Pay's express
+  checkout would bypass the cart and drop the custom option line-item
+  properties, so it must not be usable. Easify only sets `pointer-events: none`,
+  which leaves a visible but dead button — hide the whole dynamic checkout block
+  instead so customers use "Add to cart" -> cart, which captures the options.
+*/
+.product__info-wrapper:has(.tpo_has-option-set) .shopify-payment-button {
+  display: none !important;
+}
+
 /* Product info */
 
 .product__info-container > * + * {
