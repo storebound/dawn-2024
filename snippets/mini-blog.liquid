@@ -5,9 +5,9 @@
 
 {%- liquid
   assign id_number = 'miniblog'
-  assign blogs["Recipes"] = "recipes"
+  assign renamed_variable__5d_ = "recipes"
   assign card_limit = 3
-  assign blogs["Recipes"].articles_count = 4
+  assign renamed_variable__5d__2e_articles_count = 4
 -%}
 
 {%- style -%}
@@ -310,4 +310,17 @@
     ]
   }
   {% endschema %}
+{% endcomment %}
+{% comment %}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: '  assign blogs["Recipes"] = "recipes"'
+  to: '  assign renamed_variable__5d_ = "recipes"'
+  position: 285..327
+- from: '  assign blogs["Recipes"].articles_count = 4'
+  to: "  assign renamed_variable__5d__2e_articles_count = 4"
+  position: 352..404
 {% endcomment %}
